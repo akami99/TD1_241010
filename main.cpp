@@ -1,6 +1,9 @@
 #include <Novice.h>
-#include <factory.h>
+#include <player.h>
+#include <structer.h>
 
+
+//グローバル変数
 const char kWindowTitle[] = "反射反撃";
 
 const int kScreenWidth = 1280;
@@ -9,50 +12,59 @@ const int kScreenHeight = 720;
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-	
+    // ライブラリの初期化
+    Novice::Initialize(kWindowTitle, 1280, 720);
 
-	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, kScreenWidth, kScreenHeight);
+    //構造体の実体化
+    KeyInput keyInput;
+    GameObject gameObject;
 
-	// キー入力結果を受け取る箱
-	char keys[256] = {0};
-	char preKeys[256] = {0};
+    //構造体を格納するポインタ型変数の宣言
+    KeyInput* key = &keyInput;
+    GameObject* go = &gameObject;
 
-	// ウィンドウの×ボタンが押されるまでループ
-	while (Novice::ProcessMessage() == 0) {
-		// フレームの開始
-		Novice::BeginFrame();
+    //各情報の初期化
+    playerInitialize(go);
 
-		// キー入力を受け取る
-		memcpy(preKeys, keys, 256);
-		Novice::GetHitKeyStateAll(keys);
+    // ウィンドウの×ボタンが押されるまでループ
+    while (Novice::ProcessMessage() == 0) {
+        // フレームの開始
+        Novice::BeginFrame();
 
-		///
-		/// ↓更新処理ここから
-		///
+        // キー入力を受け取る
+        memcpy(key->preKeys, key->keys, 256);
+        Novice::GetHitKeyStateAll(key->keys);
 
-		///
-		/// ↑更新処理ここまで
-		///
+        ///
+        /// ↓更新処理ここから
+        ///
 
-		///
-		/// ↓描画処理ここから
-		///
+        playerMove(go, key);
 
-		///
-		/// ↑描画処理ここまで
-		///
+        ///
+        /// ↑更新処理ここまで
+        ///
 
-		// フレームの終了
-		Novice::EndFrame();
+        ///
+        /// ↓描画処理ここから
+        ///
 
-		// ESCキーが押されたらループを抜ける
-		if (preKeys[DIK_ESCAPE] == 0 && keys[DIK_ESCAPE] != 0) {
-			break;
-		}
-	}
+        drawPlayer(go);
 
-	// ライブラリの終了
-	Novice::Finalize();
-	return 0;
+        ///
+        /// ↑描画処理ここまで
+        ///
+
+        // フレームの終了
+        Novice::EndFrame();
+
+        // ESCキーが押されたらループを抜ける
+        if (key->preKeys[DIK_ESCAPE] == 0 && key->keys[DIK_ESCAPE] != 0) {
+            break;
+        }
+    }
+
+    // ライブラリの終了
+    Novice::Finalize();
+    return 0;
 }
