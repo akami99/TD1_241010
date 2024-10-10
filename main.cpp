@@ -1,12 +1,18 @@
 #include <Novice.h>
+#include <factory.h>
 
 const char kWindowTitle[] = "反射反撃";
+
+const int kScreenWidth = 1280;
+const int kScreenHeight = 720;
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
+	
+
 	// ライブラリの初期化
-	Novice::Initialize(kWindowTitle, 1280, 720);
+	Novice::Initialize(kWindowTitle, kScreenWidth, kScreenHeight);
 
 	// キー入力結果を受け取る箱
 	char keys[256] = {0};
