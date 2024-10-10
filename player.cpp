@@ -4,7 +4,7 @@
 #include <player.h>
 
 //グローバル変数の宣言
-#define blockSize = 32;
+#define blockSize 32;
 
 //プレイヤーの情報を初期化する関数
 void playerInitialize(GameObject* go) {
