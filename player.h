@@ -5,10 +5,10 @@
 #include <structer.h>
 
 //プレイヤーの情報を初期化する関数
-void playerInitialize(GameObject* go);
+void PlayerInitialize(GameObject* go);
 
 //プレイヤーの動作に関する関数
-void playerMove(GameObject* go, KeyInput* key);
+void PlayerMove(GameObject* go, KeyInput* key);
 
 //プレイヤーを描画する関数
-void drawPlayer(GameObject* go);
+void DrawPlayer(GameObject* go);
