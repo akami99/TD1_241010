@@ -11,4 +11,4 @@ void PlayerInitialize(GameObject* go);
 void PlayerMove(GameObject* go, KeyInput* key);
 
 //プレイヤーを描画する関数
-void DrawPlayer(GameObject* go);
+void DrawPlayer(GameObject* go, ImageInfo* ii);
