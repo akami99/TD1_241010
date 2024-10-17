@@ -35,6 +35,7 @@ struct Player {
     Vector2 pos;
     Vector2 velocity;
     float radius;
+    int direction;
 };
 
 //マップチップに関する構造体

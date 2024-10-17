@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ///
 
         DrawStage(go, ii);
-        DrawPlayer(go);
+        DrawPlayer(go, ii);
 
         ///
         /// ↑描画処理ここまで
