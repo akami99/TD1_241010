@@ -79,46 +79,6 @@ void PlayerMove(GameObject* go, KeyInput* key) {
 		}
 	}
 
-	//if (key->keys[DIK_W] && key->preKeys[DIK_W] == 0) {
-	//	go->player.posTmp.y -= go->player.velocity.y;
-	//	if (go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x] == 0) {
-	//		go->player.direction = 0;
-	//		go->player.pos.y -= go->player.posTmp.y;
-	//	}
-	//	/*else {
-	//		go->player.posTmp.y += go->player.velocity.y;
-	//	}*/
-	//}
-	//else if (key->keys[DIK_S] && key->preKeys[DIK_S] == 0) {
-	//	go->player.posTmp.y += go->player.velocity.y;
-	//	/*if (go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x] == 0) {
-	//		go->player.direction = 2;
-	//		go->player.pos.y += go->player.velocity.y;
-	//	}
-	//	else {
-	//		go->player.posTmp.y -= go->player.velocity.y;
-	//	}*/
-	//}
-	//else if (key->keys[DIK_A] && key->preKeys[DIK_A] == 0) {
-	//	go->player.posTmp.x -= go->player.velocity.x;
-	//	/*if (go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x] == 0) {
-	//		go->player.direction = 3;
-	//		go->player.pos.x -= go->player.velocity.x;
-	//	}
-	//	else {
-	//		go->player.posTmp.x += go->player.velocity.x;
-	//	}*/
-	//}
-	//else if (key->keys[DIK_D] && key->preKeys[DIK_D] == 0) {
-	//	go->player.posTmp.x += go->player.velocity.x;
-	//	/*if (go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x] == 0) {
-	//		go->player.direction = 1;
-	//		go->player.pos.x += go->player.velocity.x;
-	//	}
-	//	else {
-	//		go->player.posTmp.x -= go->player.velocity.x;
-	//	}*/
-	//}
 }
 
 //プレイヤーを描画する関数
