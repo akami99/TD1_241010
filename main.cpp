@@ -54,6 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ///
 
         DrawStage(go, ii);
+        ScreenSelectStage(go);
         DrawPlayer(go, ii);
 
         ///
