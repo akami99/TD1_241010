@@ -55,6 +55,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         DrawStage(go, ii);
         DrawPlayer(go, ii);
+        Novice::ScreenPrintf(20, 30, "mapNum:[%d][%d] = %d", int(go->player.mapNum.y), int(go->player.mapNum.x),
+            go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x]);
+        Novice::ScreenPrintf(20, 60, "playerPosTmp x:%d y:%d", int(go->player.posTmp.x), int(go->player.posTmp.y));
+        Novice::ScreenPrintf(20, 90, "playerPos x:%d y:%d", int(go->player.pos.x), int(go->player.pos.y));
 
         ///
         /// ↑描画処理ここまで
