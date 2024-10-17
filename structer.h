@@ -33,6 +33,8 @@ struct IntVector2 {
 //プレイヤーの構造体
 struct Player {
     Vector2 pos;
+    Vector2 posTmp; //仮で入れておくための変数(マップチップで動かす用)
+    IntVector2 mapNum; // マップチップ番号を格納する変数
     Vector2 velocity;
     float radius;
     int direction;
@@ -45,6 +47,7 @@ struct MapChip {
 
     //マップ描画の初期位置
     IntVector2 pos;
+    IntVector2 mapPos;
 
     //マップサイズ
     int blockSize;
