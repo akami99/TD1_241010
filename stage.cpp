@@ -247,6 +247,52 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLACK
 				);
 			}
+
+			if (go->mapChip.map[j][i] == 2) {
+				Novice::DrawQuad(
+					//左上
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, WHITE
+				);
+			}
+
+			if (go->mapChip.map[j][i] == 3) {
+				Novice::DrawQuad(
+					//左上
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLUE
+				);
+			}
 		}
 	}
 };
