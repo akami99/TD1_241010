@@ -18,13 +18,16 @@ void StageInfoInitialize(GameObject* go) {
 	go->mapChip.blockSize = 96;
 };
 
+//0 空白,1 壁,2 穴,
+//4 自機
+//6~9敵 6 上向き, 7 左向き, 8 下向き, 9 右向き
 void Stage1(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 1, 0, 0, 3, 1, 0 },
+		{ 1, 1, 0, 0, 8, 1, 0 },
+		{ 1, 0, 2, 0, 0, 1 ,0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 3, 0, 0, 0, 1, 0 },
+		{ 1, 6, 0, 0, 0, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	}; 
@@ -40,10 +43,10 @@ void Stage1(GameObject* go) {
 void Stage2(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 0, 3, 0, 2, 1, 0 },
+		{ 1, 0, 8, 0, 4, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 0, 0, 0, 3, 1, 0 },
+		{ 1, 0, 0, 0, 7, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 }
 	};
@@ -59,10 +62,10 @@ void Stage2(GameObject* go) {
 void Stage3(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 3, 0, 0, 2, 1, 0 },
-		{ 1, 4, 0, 0, 3, 1, 0 },
+		{ 1, 8, 0, 0, 4, 1, 0 },
+		{ 1, 1, 0, 0, 7, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 3, 0, 0, 1, 1, 0 },
+		{ 1, 9, 0, 0, 1, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -79,9 +82,9 @@ void Stage4(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 3, 0, 0, 0, 1, 0 },
-		{ 1, 0, 0, 0, 0, 0, 0 },
-		{ 1, 2, 3, 0, 0, 1, 0 },
+		{ 1, 9, 0, 0, 0, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 4, 6, 0, 0, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -97,10 +100,10 @@ void Stage4(GameObject* go) {
 void Stage5(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 2, 0, 1, 0, 1, 0 },
+		{ 1, 4, 0, 1, 0, 1, 0 },
 		{ 1, 1, 0, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 0, 3, 3, 3, 1, 0 },
+		{ 1, 0, 6, 6, 6, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -117,9 +120,9 @@ void Stage6(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 1, 3, 0, 0, 1, 0 },
-		{ 1, 0, 0, 3, 1, 1, 0 },
-		{ 1, 0, 0, 0, 2, 1, 0 },
+		{ 1, 1, 9, 0, 0, 1, 0 },
+		{ 1, 0, 0, 7, 1, 1, 0 },
+		{ 1, 0, 0, 0, 4, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -135,10 +138,10 @@ void Stage6(GameObject* go) {
 void Stage7(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 0, 3, 0, 0, 1, 0 },
-		{ 1, 0, 1, 2, 0, 1, 0 },
+		{ 1, 0, 9, 0, 0, 1, 0 },
+		{ 1, 0, 1, 4, 0, 1, 0 },
 		{ 1, 0, 0, 1, 0, 1, 0 },
-		{ 1, 0, 0, 0, 3, 1, 0 },
+		{ 1, 0, 0, 0, 7, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -154,10 +157,10 @@ void Stage7(GameObject* go) {
 void Stage8(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 2, 0, 0, 1, 3, 0 },
-		{ 1, 0, 0, 4, 3, 1, 0 },
+		{ 1, 4, 0, 0, 8, 1, 0 },
+		{ 1, 0, 0, 2, 7, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 4, 0, 0, 3, 1, 0 },
+		{ 1, 4, 0, 0, 7, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -173,10 +176,10 @@ void Stage8(GameObject* go) {
 void Stage9(GameObject* go) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 3, 4, 0, 0, 0, 1, 0 },
-		{ 1, 0, 3, 0, 0, 1, 0 },
-		{ 1, 0, 0, 4, 3, 1, 0 },
-		{ 1, 0, 0, 0, 3, 1, 0 },
+		{ 1, 9, 2, 0, 0, 1, 0 },
+		{ 1, 0, 8, 0, 0, 1, 0 },
+		{ 1, 0, 0, 2, 7, 1, 0 },
+		{ 1, 0, 0, 0, 4, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -267,11 +270,13 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, 0xffff00
+
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLUE
 				);
 			}
 
-			if (go->mapChip.map[j][i] == 3) {
+
+			if (go->mapChip.map[j][i] == 4) {
 				Novice::DrawQuad(
 					//左上
 					go->mapChip.pos.x + (go->mapChip.blockSize * i),
@@ -290,9 +295,112 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLUE
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, WHITE
 				);
 			}
+
+			if (go->mapChip.map[j][i] == 6) {
+				Novice::DrawQuad(
+					//左上(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+
+
+				);
+
+			}
+
+			if (go->mapChip.map[j][i] == 7) {
+
+				Novice::DrawQuad(
+					//左上(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					///右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					///左下(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+				);
+			}
+
+			if (go->mapChip.map[j][i] == 8) {
+				Novice::DrawQuad(
+					//左上
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+
+
+				);
+
+			}
+
+			if (go->mapChip.map[j][i] == 9) {
+
+				Novice::DrawQuad(
+					//左上(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					///右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					///左下(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+				);
+			}
+
+
 		}
 	}
 };
