@@ -267,7 +267,7 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, WHITE
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, 0xffff00
 				);
 			}
 
