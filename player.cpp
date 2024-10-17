@@ -1,22 +1,22 @@
 //ヘッダーファイルのインクルード
 #include <Novice.h>
-#include <structer.h>
-#include <player.h>
+#include "structer.h"
+#include "player.h"
 
 //グローバル変数の宣言
-#define blockSize 32;
+#define blockSize 96;
 
 //プレイヤーの情報を初期化する関数
-void playerInitialize(GameObject* go) {
-	go->player.pos.x = 640.0f;
-	go->player.pos.y = 360.0f;
-	go->player.velocity.x = 32.0f;
-	go->player.velocity.y = 32.0f;
-	go->player.radius = 15.0f;
+void PlayerInitialize(GameObject* go) {
+	go->player.pos.x = 400.0f;
+	go->player.pos.y = 120.0f;
+	go->player.velocity.x = 96.0f;
+	go->player.velocity.y = 96.0f;
+	go->player.radius = 30.0f;
 }
 
 //プレイヤーの動作に関する関数
-void playerMove(GameObject* go, KeyInput* key) {
+void PlayerMove(GameObject* go, KeyInput* key) {
 	if (key->keys[DIK_W] && key->preKeys[DIK_W] == 0) {
 		go->player.pos.y -= go->player.velocity.y;
 	}
@@ -32,7 +32,7 @@ void playerMove(GameObject* go, KeyInput* key) {
 }
 
 //プレイヤーを描画する関数
-void drawPlayer(GameObject* go) {
+void DrawPlayer(GameObject* go) {
 	Novice::DrawEllipse(
 		int(go->player.pos.x), int(go->player.pos.y), int(go->player.radius), int(go->player.radius),
 		0.0f, WHITE, kFillModeSolid

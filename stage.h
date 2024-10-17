@@ -3,13 +3,22 @@
 //ヘッダーファイルのインクルード
 #include <structer.h>
 
-//ステージの構成
-void stage1(GameObject* go);
-void stage2(GameObject* go);
-void stage3(GameObject* go);
-void stage4(GameObject* go);
-void stage5(GameObject* go);
-void stage6(GameObject* go);
-void stage7(GameObject* go);
-void stage8(GameObject* go);
-void stage9(GameObject* go);
+//ステージ情報を初期化する関数
+void StageInfoInitialize(GameObject* go);
+
+//ステージ構成の関数
+void Stage1(GameObject* go);
+void Stage2(GameObject* go);
+void Stage3(GameObject* go);
+void Stage4(GameObject* go);
+void Stage5(GameObject* go);
+void Stage6(GameObject* go);
+void Stage7(GameObject* go);
+void Stage8(GameObject* go);
+void Stage9(GameObject* go);
+
+//ステージをまとめるための関数
+void StageAggregate(GameObject* go);
+
+//ステージを描画するための関数
+void DrawStage(GameObject* go, ImageInfo* ii);

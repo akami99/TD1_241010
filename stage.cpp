@@ -1,466 +1,252 @@
 //ヘッダーファイルのインクルード
 #include <Novice.h>
-#include <structer.h>
-#include <stage.h>
+#include "structer.h"
+#include "stage.h"
 
 //グローバル変数の宣言
 #define verticalBlock 7
 #define besideBlock 7
 
-//壁1,player2,敵3,穴4,空白0
+//ステージの情報を初期化する関数
+void StageInfoInitialize(GameObject* go) {
+	go->mapChip.stageNum = 1;
 
-void stage1(GameObject* go){
-	go->mapChip[verticalBlock][besideBlock]{
-		{1,1,1,1,1,1,0},
-		{1,1,0,0,3,1,0},
-		{1,0,2,0,0,1,0},
-		{1,0,0,0,0,1,0},
-		{1,3,0,0,0,1,0},
-		{1,1,1,1,1,1,0},
-		{0,0,0,0,0,0,0},
-	}
+	//マップ描画の初期位置の初期化
+	go->mapChip.pos.x = 352;
+	go->mapChip.pos.y = 72;
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
+	go->mapChip.blockSize = 96;
+};
 
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
+void Stage1(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 1, 0, 0, 3, 1, 0 },
+		{ 1, 0, 2, 0, 0, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 3, 0, 0, 0, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
+	}; 
 
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage2(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,0,3,0,2,1},
-		{1,0,0,0,0,1},
-		{1,0,0,0,0,1},
-		{1,0,0,0,3,1},
-		{1,1,1,1,1,1},
+void Stage2(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 0, 3, 0, 2, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 0, 0, 0, 3, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 }
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage3(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,3,0,0,2,1},
-		{1,4,0,0,3,1},
-		{1,0,0,0,0,1},
-		{1,3,0,0,1,1},
+void Stage3(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 3, 0, 0, 2, 1, 0 },
+		{ 1, 4, 0, 0, 3, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 3, 0, 0, 1, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage4(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,0,0,0,0,1},
-		{1,3,0,0,0,1},
-		{1,0,0,0,0,0},
-		{1,2,3,0,0,1},
+void Stage4(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 3, 0, 0, 0, 1, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0 },
+		{ 1, 2, 3, 0, 0, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage5(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,2,0,1,0,1},
-		{1,1,0,0,0,1},
-		{1,0,0,0,0,1},
-		{1,0,3,3,3,1},
-		{1,1,1,1,1,1},
+void Stage5(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 2, 0, 1, 0, 1, 0 },
+		{ 1, 1, 0, 0, 0, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 0, 3, 3, 3, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage6(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,0,0,0,0,1},
-		{1,1,3,0,0,1},
-		{1,0,0,3,1,1},
-		{1,0,0,0,2,1},
-		{1,1,1,1,1,1},
+void Stage6(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 1, 3, 0, 0, 1, 0 },
+		{ 1, 0, 0, 3, 1, 1, 0 },
+		{ 1, 0, 0, 0, 2, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage7(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,0,3,0,0,1},
-		{1,0,1,2,0,1},
-		{1,0,0,1,0,1},
-		{1,0,0,0,3,1},
-		{1,1,1,1,1,1},
+void Stage7(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 0, 3, 0, 0, 1, 0 },
+		{ 1, 0, 1, 2, 0, 1, 0 },
+		{ 1, 0, 0, 1, 0, 1, 0 },
+		{ 1, 0, 0, 0, 3, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage8(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{1,2,0,0,1,3},
-		{1,0,0,4,3,1},
-		{1,0,0,0,0,1},
-		{1,4,0,0,3,1},
-		{1,1,1,1,1,1},
+void Stage8(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 1, 2, 0, 0, 1, 3, 0 },
+		{ 1, 0, 0, 4, 3, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
+		{ 1, 4, 0, 0, 3, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
 };
 
-void stage9(float& x, float& y, int& tileSize)
-{
-	int map[6][6]
-	{
-		{1,1,1,1,1,1},
-		{3,4,0,0,0,1},
-		{1,0,3,0,0,1},
-		{1,0,0,4,3,1},
-		{1,0,0,0,3,1},
-		{1,1,1,1,1,1},
+void Stage9(GameObject* go) {
+	int map[verticalBlock][besideBlock] = {
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 3, 4, 0, 0, 0, 1, 0 },
+		{ 1, 0, 3, 0, 0, 1, 0 },
+		{ 1, 0, 0, 4, 3, 1, 0 },
+		{ 1, 0, 0, 0, 3, 1, 0 },
+		{ 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	for (int i = 0; i < 6; i++)
-	{
-		for (int j = 0; j < 6; j++)
-		{
-			if (map[j][i] == 1)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0x7d7d7dFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 2)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, 0xFFFFFFFF, kFillModeSolid);
-			}
-
-			if (map[j][i] == 3)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, RED, kFillModeSolid);
-			}
-
-			if (map[j][i] == 4)
-			{
-				x = float(j * tileSize);
-				y = float(i * tileSize);
-
-				Novice::DrawBox(int(x), int(y), tileSize, tileSize, 0.0f, BLUE, kFillModeSolid);
-			}
-
+	//ステージの構成をmapChip.mapに代入する
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
+};
+
+//ステージをまとめて変数によって呼び出すための関数
+void StageAggregate(GameObject* go) {
+	//ステージセレクト用の変数の値によって呼び出すステージを変える
+	if (go->mapChip.stageNum == 1) {
+		Stage1(go);
+	}
+	else if (go->mapChip.stageNum == 2) {
+		Stage2(go);
+	}
+	else if (go->mapChip.stageNum == 3) {
+		Stage3(go);
+	}
+	else if (go->mapChip.stageNum == 4) {
+		Stage4(go);
+	}
+	else if (go->mapChip.stageNum == 5) {
+		Stage5(go);
+	}
+	else if (go->mapChip.stageNum == 6) {
+		Stage6(go);
+	}
+	else if (go->mapChip.stageNum == 7) {
+		Stage7(go);
+	}
+	else if (go->mapChip.stageNum == 8) {
+		Stage8(go);
+	}
+	else if (go->mapChip.stageNum == 9) {
+		Stage9(go);
+	}
+};
+
+//ステージを描画するための関数
+void DrawStage(GameObject* go, ImageInfo* ii) {
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			if (go->mapChip.map[j][i] == 1) {
+				Novice::DrawQuad(
+					//左上
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLACK
+				);
+			}
+		}
+	}
+};

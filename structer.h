@@ -1,5 +1,8 @@
 #pragma once
 
+//ヘッダーファイルのインクルード
+#include <Novice.h>
+
 //グローバル変数の宣言
 #define verticalBlock 7
 #define besideBlock 7
@@ -15,11 +18,17 @@ struct KeyInput {
     char preKeys[256] = { 0 };
 };
 
-//ベクター構造体
+//----ベクター構造体,intベクター構造体----
 struct Vector2 {
     float x;
     float y;
 };
+
+struct IntVector2 {
+    int x;
+    int y;
+};
+//------------------------------------
 
 //プレイヤーの構造体
 struct Player {
@@ -29,13 +38,30 @@ struct Player {
 };
 
 //マップチップに関する構造体
-struct mapChip {
-    int num;
-    
+struct MapChip {
+    int map[verticalBlock][besideBlock];
+    int stageNum;
+
+    //マップ描画の初期位置
+    IntVector2 pos;
+
+    //マップサイズ
+    int blockSize;
 };
 
 //ゲーム内のオブジェクトをまとめる構造体
 struct GameObject {
     Player player;
-    mapChip mapChip[verticalBlock][besideBlock];
+    MapChip mapChip;
+};
+
+//画像をまとめる構造体
+struct Image {
+    int box = { Novice::LoadTexture("white1x1.png") };
+};
+
+//画像の情報をまとめる構造体
+struct ImageInfo {
+    Image image;
+   
 };

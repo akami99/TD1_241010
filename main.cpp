@@ -1,7 +1,7 @@
 #include <Novice.h>
-#include <player.h>
-#include <structer.h>
-
+#include "player.h"
+#include "structer.h"
+#include "stage.h"
 
 //グローバル変数
 const char kWindowTitle[] = "反射反撃";
@@ -18,13 +18,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     //構造体の実体化
     KeyInput keyInput;
     GameObject gameObject;
+    ImageInfo imageinfo;
 
     //構造体を格納するポインタ型変数の宣言
     KeyInput* key = &keyInput;
     GameObject* go = &gameObject;
+    ImageInfo* ii = &imageinfo;
 
     //各情報の初期化
-    playerInitialize(go);
+    PlayerInitialize(go);
+    StageInfoInitialize(go);
 
     // ウィンドウの×ボタンが押されるまでループ
     while (Novice::ProcessMessage() == 0) {
@@ -39,7 +42,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         /// ↓更新処理ここから
         ///
 
-        playerMove(go, key);
+        PlayerMove(go, key);
+        StageAggregate(go);
 
         ///
         /// ↑更新処理ここまで
@@ -49,7 +53,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         /// ↓描画処理ここから
         ///
 
-        drawPlayer(go);
+        DrawStage(go, ii);
+        DrawPlayer(go);
 
         ///
         /// ↑描画処理ここまで
