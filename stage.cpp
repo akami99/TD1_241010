@@ -270,11 +270,12 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, WHITE
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLUE
 				);
 			}
 
-			if (go->mapChip.map[j][i] == 3) {
+
+			if (go->mapChip.map[j][i] == 4) {
 				Novice::DrawQuad(
 					//左上
 					go->mapChip.pos.x + (go->mapChip.blockSize * i),
@@ -293,9 +294,112 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLUE
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, WHITE
 				);
 			}
+
+			if (go->mapChip.map[j][i] == 6) {
+				Novice::DrawQuad(
+					//左上(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+
+
+				);
+
+			}
+
+			if (go->mapChip.map[j][i] == 7) {
+
+				Novice::DrawQuad(
+					//左上(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					///右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					///左下(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+				);
+			}
+
+			if (go->mapChip.map[j][i] == 8) {
+				Novice::DrawQuad(
+					//左上
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					//左下(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下(頂点)
+					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+
+
+				);
+
+			}
+
+			if (go->mapChip.map[j][i] == 9) {
+
+				Novice::DrawQuad(
+					//左上(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
+
+					///右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					///左下(頂点)
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
+
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+
+					//画像の情報
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+				);
+			}
+
+
 		}
 	}
 };
