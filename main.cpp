@@ -54,6 +54,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ///
 
         DrawStage(go, ii);
+        ScreenSelectStage(go);
         DrawPlayer(go, ii);
         Novice::ScreenPrintf(20, 30, "mapNum:[%d][%d] = %d", int(go->player.mapNum.y), int(go->player.mapNum.x),
             go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x]);

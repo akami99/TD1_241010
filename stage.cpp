@@ -9,7 +9,7 @@
 
 //ステージの情報を初期化する関数
 void StageInfoInitialize(GameObject* go) {
-	go->mapChip.stageNum = 1;
+	go->mapChip.stageNum = 0;///0 = StageSelect
 
 	//マップ描画の初期位置の初期化
 	go->mapChip.pos.x = 352;
@@ -17,6 +17,59 @@ void StageInfoInitialize(GameObject* go) {
 
 	go->mapChip.blockSize = 96;
 };
+
+void ScreenSelectStage(GameObject* go) {
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 2; j++) {
+			Novice::ScreenPrintf(
+				int(go->mapChip.pos.x + 142 + ( 96 * i)),
+				int(go->mapChip.pos.y + 334),
+				"%d", i + 1
+			);
+		}
+	}
+}
+
+
+void StageSelectPlayerMove(GameObject* go, KeyInput* key) {
+	if (key->keys[DIK_W] && key->preKeys[DIK_W] == 0) {
+		go->player.direction = 0;
+		go->player.pos.y -= go->player.velocity.y;
+	}
+	else if (key->keys[DIK_S] && key->preKeys[DIK_S] == 0) {
+		go->player.direction = 2;
+		go->player.pos.y += go->player.velocity.y;
+	}
+	else if (key->keys[DIK_A] && key->preKeys[DIK_A] == 0) {
+		go->player.direction = 3;
+		go->player.pos.x -= go->player.velocity.x;
+	}
+	else if (key->keys[DIK_D] && key->preKeys[DIK_D] == 0) {
+		go->player.direction = 1;
+		go->player.pos.x += go->player.velocity.x;
+	}
+}
+
+//STage1~5
+void StageSelect(GameObject* go){
+	int map[verticalBlock][besideBlock] = {
+		{ 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0 },
+	};
+
+	for (int i = 0; i < besideBlock; i++) {
+		for (int j = 0; j < verticalBlock; j++) {
+			go->mapChip.map[j][i] = map[j][i];
+		}
+	}
+}
+
+
 
 //0 空白,1 壁,2 穴,
 //4 自機
@@ -195,7 +248,11 @@ void Stage9(GameObject* go) {
 //ステージをまとめて変数によって呼び出すための関数
 void StageAggregate(GameObject* go) {
 	//ステージセレクト用の変数の値によって呼び出すステージを変える
-	if (go->mapChip.stageNum == 1) {
+	if (go->mapChip.stageNum == 0){
+		StageSelect(go);
+	}
+
+	else if (go->mapChip.stageNum == 1) {
 		Stage1(go);
 	}
 	else if (go->mapChip.stageNum == 2) {
@@ -224,10 +281,41 @@ void StageAggregate(GameObject* go) {
 	}
 };
 
+
 //ステージを描画するための関数
 void DrawStage(GameObject* go, ImageInfo* ii) {
-	for (int i = 0; i < BesideBlock; i++) {
-		for (int j = 0; j < VerticalBlock; j++) {
+
+	for (int i = 0; i < besideBlock; i++) {
+
+		if (go->mapChip.map[0][i] !=0 && go->mapChip.stageNum == 0) {
+			Novice::DrawQuad(
+				//左上
+				go->mapChip.pos.x + (go->mapChip.blockSize * i),
+				go->mapChip.pos.y + (go->mapChip.blockSize),
+
+				//右上
+				(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+				go->mapChip.pos.y + (go->mapChip.blockSize),
+
+				//左下
+				go->mapChip.pos.x + (go->mapChip.blockSize * i),
+				(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize),
+
+				//右下
+				(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+				(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize),
+
+				//画像の情報
+				1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLACK
+			);
+
+		}
+
+
+
+		for (int j = 0; j < verticalBlock; j++) {
+
+	
 			if (go->mapChip.map[j][i] == 1) {
 				Novice::DrawQuad(
 					//左上
