@@ -2,6 +2,7 @@
 #include <Novice.h>
 #include "structer.h"
 #include "stage.h"
+#include "enemy.h"
 
 //グローバル変数の宣言
 #define VerticalBlock 7
@@ -21,11 +22,11 @@ void StageInfoInitialize(GameObject* go) {
 //0 空白,1 壁,2 穴,
 //4 自機
 //6~9敵 6 上向き, 7 左向き, 8 下向き, 9 右向き
-void Stage1(GameObject* go) {
+void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 1, 0, 0, 8, 1, 0 },
-		{ 1, 0, 2, 0, 0, 1 ,0 },
+		{ 1, 0, 0, 0, 0, 1 ,0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 6, 0, 0, 0, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
@@ -36,11 +37,23 @@ void Stage1(GameObject* go) {
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
+
+	EnemyInitialize(go, enemy, bullet, s);
+	BulletInitialize(s, bullet, enemy, go);
+	go->player.pos.x = 400.0f + 192.0f;
+	go->player.posTmp.x = go->player.pos.x;
+	go->player.pos.y = 120.0f + 192.0f;
+	go->player.posTmp.y = go->player.pos.y;
 };
 
-void Stage2(GameObject* go) {
+void Stage2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 0, 8, 0, 4, 1, 0 },
@@ -57,9 +70,19 @@ void Stage2(GameObject* go) {
 			go->mapChip.map[j][i] = map[j][i];
 		}
 	}
+
+	EnemyInitialize(go, enemy, bullet, s);
+	go->player.pos.x = 400.0f + 288.0f;
+	go->player.posTmp.x = go->player.pos.x;
+	go->player.pos.y = 120.0f + 288.0f;
+	go->player.posTmp.y = go->player.pos.y;
 };
 
-void Stage3(GameObject* go) {
+void Stage3(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
+
+	EnemyInitialize(go, enemy, bullet, s);
+	BulletInitialize(s, bullet, enemy, go);
+
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 8, 0, 0, 4, 1, 0 },
@@ -78,7 +101,11 @@ void Stage3(GameObject* go) {
 	}
 };
 
-void Stage4(GameObject* go) {
+void Stage4(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
+
+	EnemyInitialize(go, enemy, bullet, s);
+	BulletInitialize(s, bullet, enemy, go);
+
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
@@ -193,19 +220,19 @@ void Stage9(GameObject* go) {
 };
 
 //ステージをまとめて変数によって呼び出すための関数
-void StageAggregate(GameObject* go) {
+void StageAggregate(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージセレクト用の変数の値によって呼び出すステージを変える
 	if (go->mapChip.stageNum == 1) {
-		Stage1(go);
+		Stage1(go, s, enemy, bullet);
 	}
 	else if (go->mapChip.stageNum == 2) {
-		Stage2(go);
+		Stage2(go, s, enemy, bullet);
 	}
 	else if (go->mapChip.stageNum == 3) {
-		Stage3(go);
+		Stage3(go, s, enemy, bullet);
 	}
 	else if (go->mapChip.stageNum == 4) {
-		Stage4(go);
+		Stage4(go, s, enemy, bullet);
 	}
 	else if (go->mapChip.stageNum == 5) {
 		Stage5(go);
