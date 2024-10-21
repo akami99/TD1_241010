@@ -11,11 +11,11 @@ void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage3(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage4(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
-void Stage5(GameObject* go);
-void Stage6(GameObject* go);
-void Stage7(GameObject* go);
-void Stage8(GameObject* go);
-void Stage9(GameObject* go);
+void Stage5(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
+void Stage6(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
+void Stage7(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
+void Stage8(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
+void Stage9(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 
 //ステージをまとめるための関数
 void StageAggregate(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
