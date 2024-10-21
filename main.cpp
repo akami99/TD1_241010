@@ -98,6 +98,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         /// ↓描画処理ここから
         ///
 
+
         switch (scene) {
         case 0: //タイトル
 
@@ -135,6 +136,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         for (int i = 0; i < s->enemyNum; i++) {
             Novice::ScreenPrintf(300, 30 + 30 * i, "bulletPos[%d] : %d", i, bullet[i].pos.y);
         }
+
 
         ///
         /// ↑描画処理ここまで
