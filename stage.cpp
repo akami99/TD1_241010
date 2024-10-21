@@ -10,7 +10,7 @@
 
 //ステージの情報を初期化する関数
 void StageInfoInitialize(GameObject* go) {
-	go->mapChip.stageNum = 0;///0 = StageSelect
+	go->mapChip.stageNum = 1;
 
 	//マップ描画の初期位置の初期化
 	go->mapChip.pos.x = 352;
@@ -18,59 +18,6 @@ void StageInfoInitialize(GameObject* go) {
 
 	go->mapChip.blockSize = 96;
 };
-
-void ScreenSelectStage(GameObject* go) {
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 2; j++) {
-			Novice::ScreenPrintf(
-				int(go->mapChip.pos.x + 142 + ( 96 * i)),
-				int(go->mapChip.pos.y + 334),
-				"%d", i + 1
-			);
-		}
-	}
-}
-
-
-void StageSelectPlayerMove(GameObject* go, KeyInput* key) {
-	if (key->keys[DIK_W] && key->preKeys[DIK_W] == 0) {
-		go->player.direction = 0;
-		go->player.pos.y -= go->player.velocity.y;
-	}
-	else if (key->keys[DIK_S] && key->preKeys[DIK_S] == 0) {
-		go->player.direction = 2;
-		go->player.pos.y += go->player.velocity.y;
-	}
-	else if (key->keys[DIK_A] && key->preKeys[DIK_A] == 0) {
-		go->player.direction = 3;
-		go->player.pos.x -= go->player.velocity.x;
-	}
-	else if (key->keys[DIK_D] && key->preKeys[DIK_D] == 0) {
-		go->player.direction = 1;
-		go->player.pos.x += go->player.velocity.x;
-	}
-}
-
-//STage1~5
-void StageSelect(GameObject* go){
-	int map[verticalBlock][besideBlock] = {
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 1, 1, 1, 1, 1, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-		{ 0, 0, 0, 0, 0, 0, 0 },
-	};
-
-	for (int i = 0; i < besideBlock; i++) {
-		for (int j = 0; j < verticalBlock; j++) {
-			go->mapChip.map[j][i] = map[j][i];
-		}
-	}
-}
-
-
 
 //0 空白,1 壁,2 穴,
 //4 自機

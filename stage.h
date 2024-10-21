@@ -6,8 +6,6 @@
 //ステージ情報を初期化する関数
 void StageInfoInitialize(GameObject* go);
 
-void ScreenSelectStage(GameObject* go);
-
 //ステージ構成の関数
 void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
