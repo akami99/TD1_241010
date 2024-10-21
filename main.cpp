@@ -2,10 +2,13 @@
 #include "player.h"
 #include "structer.h"
 #include "stage.h"
+#include "enemy.h"
+#include "system.h"
 
 //グローバル変数
 const char kWindowTitle[] = "反射反撃";
 
+const int kMaxEnemy = 10;
 const int kScreenWidth = 1280;
 const int kScreenHeight = 720;
 
@@ -18,16 +21,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     //構造体の実体化
     KeyInput keyInput;
     GameObject gameObject;
+    System system;
     ImageInfo imageinfo;
+    Bullet bullet[kMaxEnemy];
+    Enemy enemy[kMaxEnemy];
+    Scene scene = SELECT;
 
     //構造体を格納するポインタ型変数の宣言
     KeyInput* key = &keyInput;
     GameObject* go = &gameObject;
+    System* s = &system;
     ImageInfo* ii = &imageinfo;
 
+
     //各情報の初期化
-    PlayerInitialize(go);
     StageInfoInitialize(go);
+    SystemInitialize(s);
 
     // ウィンドウの×ボタンが押されるまでループ
     while (Novice::ProcessMessage() == 0) {
@@ -42,8 +51,44 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         /// ↓更新処理ここから
         ///
 
-        PlayerMove(go, key);
-        StageAggregate(go);
+        switch (scene) {
+        case 0: //タイトル
+
+
+
+            break;
+        case 1: //ステージセレクト
+            StageSelect(key, go);
+
+            if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
+                SystemInitialize(s);
+                PlayerInitialize(go);
+                StageAggregate(go, s, enemy, bullet);
+                scene = GAME;
+            }
+
+            break;
+        case 2: //ゲームシーン
+            PlayerMove(go, bullet, key, s);
+            EnemyAction(go, bullet, s);
+            
+            if (go->player.isHit == 1) {
+                scene = GAMEOVER;
+            }
+
+
+            break;
+        case 3: //ゲームオーバー
+
+
+            break;
+        case 4: //クリア画面
+
+
+
+            break;
+        }
+        
 
         ///
         /// ↑更新処理ここまで
@@ -53,13 +98,45 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         /// ↓描画処理ここから
         ///
 
-        DrawStage(go, ii);
-        ScreenSelectStage(go);
-        DrawPlayer(go, ii);
-        Novice::ScreenPrintf(20, 30, "mapNum:[%d][%d] = %d", int(go->player.mapNum.y), int(go->player.mapNum.x),
-            go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x]);
-        Novice::ScreenPrintf(20, 60, "playerPosTmp x:%d y:%d", int(go->player.posTmp.x), int(go->player.posTmp.y));
-        Novice::ScreenPrintf(20, 90, "playerPos x:%d y:%d", int(go->player.pos.x), int(go->player.pos.y));
+
+        switch (scene) {
+        case 0: //タイトル
+
+
+
+            break;
+        case 1: //ステージセレクト
+
+
+
+            break;
+        case 2: //ゲームシーン
+            DrawStage(go, ii);
+            DrawPlayer(go, ii);
+            DrawBullet(bullet, s);
+            
+
+            break;
+        case 3: //ゲームオーバー
+            Novice::ScreenPrintf(600, 360, "zakootu");
+
+
+            break;
+        case 4: //クリア画面
+
+
+
+            break;
+        }
+
+        Novice::ScreenPrintf(20, 30, "isHit %d", go->player.isHit);
+        Novice::ScreenPrintf(20, 60, "isShot[0] : %d", bullet[0].isShot);
+        Novice::ScreenPrintf(20, 90, "player.mapNum y:%d x:%d", go->player.mapNum.y, go->player.mapNum.x);
+        Novice::ScreenPrintf(20, 120, "bullet.mapNum y:%d x:%d", bullet[1].mapNum.y, bullet[1].mapNum.x);
+        for (int i = 0; i < s->enemyNum; i++) {
+            Novice::ScreenPrintf(300, 30 + 30 * i, "bulletPos[%d] : %d", i, bullet[i].pos.y);
+        }
+
 
         ///
         /// ↑描画処理ここまで
