@@ -209,7 +209,7 @@ void DrawBullet(Bullet bullet[], System* s) {
 			if (bullet[i].isShot == 1)
 			{
 				Novice::DrawEllipse(int(bullet[i].pos.x), int(bullet[i].pos.y),
-					int(bullet[i].radius), int(bullet[i].radius), 0.0f, BLUE, kFillModeWireFrame);
+					int(bullet[i].radius), int(bullet[i].radius), 0.0f, 0xffcc00ff, kFillModeWireFrame);
 			}
 		}
 	}
