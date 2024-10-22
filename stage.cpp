@@ -59,7 +59,7 @@ void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 void Stage2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 0, 8, 0, 4, 1, 0 },
+		{ 1, 0, 8, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 7, 1, 0 },
@@ -138,7 +138,7 @@ void Stage4(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 9, 0, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
-		{ 1, 4, 6, 0, 0, 1, 0 },
+		{ 1, 0, 6, 0, 0, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -169,7 +169,7 @@ void Stage4(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 void Stage5(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 4, 0, 1, 0, 1, 0 },
+		{ 1, 0, 0, 1, 0, 1, 0 },
 		{ 1, 1, 0, 0, 0, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 0, 6, 6, 6, 1, 0 },
@@ -206,7 +206,7 @@ void Stage6(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 1, 9, 0, 0, 1, 0 },
 		{ 1, 0, 0, 7, 1, 1, 0 },
-		{ 1, 0, 0, 0, 4, 1, 0 },
+		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 0, 0, 0, 0, 0, 0, 0 },
 	};
@@ -238,7 +238,7 @@ void Stage7(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 0, 9, 0, 0, 1, 0 },
-		{ 1, 0, 1, 4, 0, 1, 0 },
+		{ 1, 0, 1, 0, 0, 1, 0 },
 		{ 1, 0, 0, 1, 0, 1, 0 },
 		{ 1, 0, 0, 0, 7, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },

@@ -1,6 +1,6 @@
 #include "structer.h"
 #include "enemy.h"
-#include "enum.h"
+#include "system.h"
 
 void BulletInitialize(System* s, Bullet bullet[], Enemy enemy[], GameObject* go) {
 	for (int i = 0; i < s->enemyNum; i++) {
@@ -39,7 +39,9 @@ void EnemyInitialize(GameObject* go, Enemy enemy[], Bullet bullet[], System* s) 
 	}
 }
 
+
 void EnemyAction(GameObject* go, Bullet bullet[],  Enemy enemy[], System* s) {
+
 	if (go->player.isMove == 1) {
 		for (int i = 0; i < s->enemyNum; i++) {
 			if (bullet[i].isShot == 1 && enemy[i].isAlive == 1) {
@@ -99,7 +101,6 @@ void EnemyAction(GameObject* go, Bullet bullet[],  Enemy enemy[], System* s) {
 		}
 	}
 }
-
 // 当たり判定
 void BulletCollision(GameObject* go, Bullet bullet[], Enemy enemy[], System* s) {
 	for (int i = 0; i < s->enemyNum; i++) {

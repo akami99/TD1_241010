@@ -47,6 +47,8 @@ struct Player {
 struct System {
     Scene scene;
     int enemyNum; //ステージごとの敵の数
+    int gameoverNum;
+    int clearNum;
 };
 
 struct Enemy {

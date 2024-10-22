@@ -74,6 +74,19 @@ void PlayerMove(GameObject* go, Bullet bullet[], KeyInput* key, System* s) {
 				go->player.posTmp.x -= go->player.velocity.x;
 			}
 		}
+
+		//プレイヤーと弾の当たり判定
+		/*for (int i = 0; i < s->enemyNum; i++) {
+			if (bullet[i].isShot == 1) {
+				if (bullet[i].direction == 6) {
+					if (go->mapChip.map[bullet[i].mapNum.y][bullet[i].mapNum.x] ==
+						go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x] && go->player.direction != 2) {
+						go->player.isHit = 1;
+						bullet[i].isShot = 0;
+					}
+				}
+			}
+		}*/
 	}
 
 }

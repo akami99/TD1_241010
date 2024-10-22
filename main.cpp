@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     ImageInfo imageinfo;
     Bullet bullet[kMaxEnemy];
     Enemy enemy[kMaxEnemy];
-    Scene scene = SELECT;
+    Scene scene = TITLE;
 
     //構造体を格納するポインタ型変数の宣言
     KeyInput* key = &keyInput;
@@ -55,7 +55,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         switch (scene) {
         case 0: //タイトル
-
+            if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
+                scene = SELECT;
+            }
 
 
             break;
@@ -100,7 +102,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
                     break;
                 }
             }
-
             if (go->player.isHit == 1) {
                 scene = GAMEOVER;
             }
@@ -108,11 +109,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
             break;
         case 3: //ゲームオーバー
-
+            GameOver(s, key);
+            if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->gameoverNum == 0) {
+                scene = SELECT;
+            }
+            else if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->gameoverNum == 1) {
+                SystemInitialize(s);
+                PlayerInitialize(go);
+                StageAggregate(go, s, enemy, bullet);
+                scene = GAME;            }
 
             break;
         case 4: //クリア画面
-
+            Clear(s, key);
 
 
             break;
@@ -130,12 +139,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         switch (scene) {
         case 0: //タイトル
-
+            TitleScreen();
 
 
             break;
         case 1: //ステージセレクト
-
+            StageSelectScreen(go);
 
 
             break;
@@ -147,26 +156,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
             break;
         case 3: //ゲームオーバー
-            Novice::ScreenPrintf(600, 360, "zakootu");
+            GameOverScreen(s);
 
 
             break;
         case 4: //クリア画面
-            Novice::ScreenPrintf(600, 360, "nice");
-
-
+            ClearScreen(s);
             break;
         }
-
-        Novice::ScreenPrintf(20, 30, "stage %d", go->mapChip.stageNum);
-        Novice::ScreenPrintf(20, 60, "isShot[0] : %d", bullet[0].isShot);
-        Novice::ScreenPrintf(20, 90, "player.mapNum y:%d x:%d", go->player.mapNum.y, go->player.mapNum.x);
-        Novice::ScreenPrintf(20, 120, "bullet.mapNum y:%d x:%d", bullet[1].mapNum.y, bullet[1].mapNum.x);
-        for (int i = 0; i < s->enemyNum; i++) {
-            Novice::ScreenPrintf(300, 30 + 30 * i, "bulletPos[%d] : %d", i, bullet[i].pos.y);
-        }
-
-
         ///
         /// ↑描画処理ここまで
         ///
