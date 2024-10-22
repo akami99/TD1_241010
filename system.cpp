@@ -90,10 +90,10 @@ void GameOverScreen(System* s) {
 }
 
 void Clear(System* s, KeyInput* key) {
-	if (key->keys[DIK_A] && key->preKeys[DIK_A] == 0 && s->gameoverNum > 0) {
+	if (key->keys[DIK_A] && key->preKeys[DIK_A] == 0 && s->clearNum > 0) {
 		s->clearNum--;
 	}
-	else if (key->keys[DIK_D] && key->preKeys[DIK_D] == 0 && s->gameoverNum < 1) {
+	else if (key->keys[DIK_D] && key->preKeys[DIK_D] == 0 && s->clearNum < 1) {
 		s->clearNum++;
 	}
 }

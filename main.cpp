@@ -117,11 +117,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
                 SystemInitialize(s);
                 PlayerInitialize(go);
                 StageAggregate(go, s, enemy, bullet);
-                scene = GAME;            }
+                scene = GAME;            
+            }
 
             break;
         case 4: //クリア画面
             Clear(s, key);
+            if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->clearNum == 0) {
+                scene = SELECT;
+            }
+            else if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->clearNum == 1) {
+                SystemInitialize(s);
+                PlayerInitialize(go);
+                StageAggregate(go, s, enemy, bullet);
+                scene = GAME;
+            }
 
 
             break;
