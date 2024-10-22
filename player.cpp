@@ -18,6 +18,7 @@ void PlayerInitialize(GameObject* go) {
 	go->player.direction = 0;//0->上　1->右　2->下　3->左
 	go->player.isMove = 0;
 	go->player.isHit = 0;
+	go->player.skip = 1;
 }
 
 //プレイヤーの動作に関する関数
@@ -75,18 +76,10 @@ void PlayerMove(GameObject* go, Bullet bullet[], KeyInput* key, System* s) {
 			}
 		}
 
-		//プレイヤーと弾の当たり判定
-		/*for (int i = 0; i < s->enemyNum; i++) {
-			if (bullet[i].isShot == 1) {
-				if (bullet[i].direction == 6) {
-					if (go->mapChip.map[bullet[i].mapNum.y][bullet[i].mapNum.x] ==
-						go->mapChip.map[go->player.mapNum.y][go->player.mapNum.x] && go->player.direction != 2) {
-						go->player.isHit = 1;
-						bullet[i].isShot = 0;
-					}
-				}
-			}
-		}*/
+		if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && go->player.skip == 1) {
+			go->player.skip = 0;
+			go->player.isMove = 1;
+		}
 	}
 
 }
