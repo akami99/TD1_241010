@@ -9,6 +9,7 @@
 const char kWindowTitle[] = "反射反撃";
 
 const int kMaxEnemy = 10;
+const int kParticlesNum = 100;
 const int kScreenWidth = 1280;
 const int kScreenHeight = 720;
 
@@ -25,6 +26,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     ImageInfo imageinfo;
     Bullet bullet[kMaxEnemy];
     Enemy enemy[kMaxEnemy];
+    //Effect effect[kParticlesNum];
     Scene scene = TITLE;
 
     //構造体を格納するポインタ型変数の宣言

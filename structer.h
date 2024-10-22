@@ -41,6 +41,7 @@ struct Player {
     int direction;
     int isHit;  //当たったかどうか
     int isMove; 
+    int skip;
 };
 
 //システム面関連の構造体
@@ -51,6 +52,7 @@ struct System {
     int clearNum;
 };
 
+//敵に関係する構造体
 struct Enemy {
     IntVector2 pos;   // 動かさないので使いやすいintにした
     IntVector2 mapNum;
@@ -58,6 +60,7 @@ struct Enemy {
     int isAlive;  // やられたかどうか
 };
 
+//弾に関係する構造体
 struct Bullet {
     IntVector2 pos;
     IntVector2 respawnPos; //弾の初期位置を保存する変数
@@ -67,6 +70,14 @@ struct Bullet {
     int direction;
     int isReflect;
     int isShot;
+};
+
+//エフェクトに関係する構造体
+struct Effect {
+    Vector2 Pos;
+    Vector2 velocity;
+    int radius;
+    
 };
 
 //マップチップに関する構造体
