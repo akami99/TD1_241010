@@ -33,6 +33,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     System* s = &system;
     ImageInfo* ii = &imageinfo;
 
+    // 敵の全滅確認用(仮)
+    int eliminate{};
 
     //各情報の初期化
     StageInfoInitialize(go);
@@ -63,6 +65,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             StageSelect(key, go);
 
             if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
+                eliminate = 0;
+
                 SystemInitialize(s);
                 PlayerInitialize(go);
                 StageAggregate(go, s, enemy, bullet);
@@ -71,11 +75,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
             break;
         case 2: //ゲームシーン
+            eliminate = 0;
+
             PlayerMove(go, bullet, key, s);
-            EnemyAction(go, bullet, s);
-            BulletCollision(go, bullet, s);
+            BulletCollision(go, bullet, enemy, s);
+            EnemyAction(go, bullet, enemy, s);
             BulletReflect(go, bullet, s);
-            
+
+            for (int i = 0; i < s->enemyNum; i++) {
+                if (bullet[i].isShot == 0) {
+                    enemy[i].isAlive = 0;
+                }
+                if (enemy[i].isAlive == 0) {
+                    enemy[i].mapNum.x = (enemy[i].pos.x - go->mapChip.mapPos.x) / go->mapChip.blockSize;
+                    enemy[i].mapNum.y = (enemy[i].pos.y - go->mapChip.mapPos.y) / go->mapChip.blockSize;
+                    go->mapChip.map[enemy[i].mapNum.y][enemy[i].mapNum.x] = 0;
+                }
+            }
+
+            for (int i = 0; i < s->enemyNum; i++) {
+                if (enemy[i].isAlive == 0) {
+                    eliminate++;
+                }
+                if (eliminate == s->enemyNum) {
+                    scene = CLEAR;
+                    break;
+                }
+            }
             if (go->player.isHit == 1) {
                 scene = GAMEOVER;
             }
@@ -100,7 +126,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
             break;
         }
-        
+
 
         ///
         /// ↑更新処理ここまで
@@ -109,6 +135,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ///
         /// ↓描画処理ここから
         ///
+
 
         switch (scene) {
         case 0: //タイトル
@@ -125,7 +152,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             DrawStage(go, ii);
             DrawPlayer(go, ii);
             DrawBullet(bullet, s);
-            
+
 
             break;
         case 3: //ゲームオーバー
@@ -135,20 +162,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             break;
         case 4: //クリア画面
             ClearScreen(s);
-
-
             break;
         }
-
-       /* Novice::ScreenPrintf(20, 30, "isHit %d", go->player.isHit);
-        Novice::ScreenPrintf(20, 60, "isShot[0] : %d", bullet[0].isShot);
-        Novice::ScreenPrintf(20, 90, "player.mapNum y:%d x:%d", go->player.mapNum.y, go->player.mapNum.x);
-        Novice::ScreenPrintf(20, 120, "bullet.mapNum y:%d x:%d", bullet[1].mapNum.y, bullet[1].mapNum.x);
-        Novice::ScreenPrintf(20, 150, "gameoverNum %d", s->gameoverNum);
-        for (int i = 0; i < s->enemyNum; i++) {
-            Novice::ScreenPrintf(300, 30 + 30 * i, "bulletPos[%d] : %d", i, bullet[i].pos.y);
-        }*/
-
         ///
         /// ↑描画処理ここまで
         ///

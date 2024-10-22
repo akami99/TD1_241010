@@ -60,7 +60,6 @@ struct Enemy {
 
 struct Bullet {
     IntVector2 pos;
-    IntVector2 posTmp; //仮で入れておくための変数(マップチップで動かす用)
     IntVector2 respawnPos; //弾の初期位置を保存する変数
     IntVector2 mapNum;
     Vector2 velocity; // 基本プレイヤーと同じ(演出時は,safety->別の変数||係数とか利用,speedy->これを変化させる)

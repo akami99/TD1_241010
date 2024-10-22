@@ -6,8 +6,6 @@ void BulletInitialize(System* s, Bullet bullet[], Enemy enemy[], GameObject* go)
 	for (int i = 0; i < s->enemyNum; i++) {
 		bullet[i].pos.x = enemy[i].pos.x;
 		bullet[i].pos.y = enemy[i].pos.y;
-		bullet[i].posTmp.x = enemy[i].pos.x;
-		bullet[i].posTmp.y = enemy[i].pos.y;
 		bullet[i].respawnPos.x = enemy[i].pos.x;
 		bullet[i].respawnPos.y = enemy[i].pos.y;
 		bullet[i].radius = 16.0f;
@@ -29,6 +27,7 @@ void EnemyInitialize(GameObject* go, Enemy enemy[], Bullet bullet[], System* s) 
 				if (go->mapChip.map[i][j] >= 6 && go->mapChip.map[i][j] <= 9) {//6<=x<=9
 					enemy[num].pos.x = j * 96 + 400;//座標
 					enemy[num].pos.y = i * 96 + 120;
+					enemy[num].isAlive = 1;// 生存フラグ
 					//敵の向き
 					enemy[num].direction = go->mapChip.map[i][j];
 					//bullet[num].direction = enemy[num].direction;
@@ -40,15 +39,15 @@ void EnemyInitialize(GameObject* go, Enemy enemy[], Bullet bullet[], System* s) 
 	}
 }
 
-void EnemyAction(GameObject* go, Bullet bullet[], System* s) {
-	GetMapNum(go, bullet, s);
+
+void EnemyAction(GameObject* go, Bullet bullet[],  Enemy enemy[], System* s) {
+
 	if (go->player.isMove == 1) {
 		for (int i = 0; i < s->enemyNum; i++) {
-			if (bullet[i].isShot == 1) {
+			if (bullet[i].isShot == 1 && enemy[i].isAlive == 1) {
 				//弾の弾道計算
 				if (bullet[i].direction == 6) {
-					bullet[i].posTmp.y -= int(bullet[i].velocity.y);
-					if (go->mapChip.map[bullet[i].mapNum.y - 1][bullet[i].mapNum.x] == 0) {
+					if (go->mapChip.map[bullet[i].mapNum.y - 1][bullet[i].mapNum.x] != 1) {
 						bullet[i].pos.y -= int(bullet[i].velocity.y);
 						go->player.isMove = 0;
 					}
@@ -57,14 +56,9 @@ void EnemyAction(GameObject* go, Bullet bullet[], System* s) {
 						bullet[i].isShot = 0;
 						go->player.isMove = 0;
 					}
-					else {
-						bullet[i].posTmp.y += int(bullet[i].velocity.y);
-					}
-					
 				}
 				if (bullet[i].direction == 8) {
-					bullet[i].posTmp.y += int(bullet[i].velocity.y);
-					if (go->mapChip.map[bullet[i].mapNum.y + 1][bullet[i].mapNum.x] == 0) {
+					if (go->mapChip.map[bullet[i].mapNum.y + 1][bullet[i].mapNum.x] != 1) {
 						bullet[i].pos.y += int(bullet[i].velocity.y);
 						go->player.isMove = 0;
 					}
@@ -73,13 +67,9 @@ void EnemyAction(GameObject* go, Bullet bullet[], System* s) {
 						bullet[i].isShot = 0;
 						go->player.isMove = 0;
 					}
-					else {
-						bullet[i].posTmp.y -= int(bullet[i].velocity.y);
-					}
 				}
 				if (bullet[i].direction == 7) {
-					bullet[i].posTmp.x -= int(bullet[i].velocity.x);
-					if (go->mapChip.map[bullet[i].mapNum.y][bullet[i].mapNum.x - 1] == 0) {
+					if (go->mapChip.map[bullet[i].mapNum.y][bullet[i].mapNum.x - 1] != 1) {
 						bullet[i].pos.x -= int(bullet[i].velocity.x);
 						go->player.isMove = 0;
 					}
@@ -88,13 +78,9 @@ void EnemyAction(GameObject* go, Bullet bullet[], System* s) {
 						bullet[i].isShot = 0;
 						go->player.isMove = 0;
 					}
-					else {
-						bullet[i].posTmp.x += int(bullet[i].velocity.x);
-					}
 				}
 				if (bullet[i].direction == 9) {
-					bullet[i].posTmp.x += int(bullet[i].velocity.x);
-					if (go->mapChip.map[bullet[i].mapNum.y][bullet[i].mapNum.x + 1] == 0) {
+					if (go->mapChip.map[bullet[i].mapNum.y][bullet[i].mapNum.x + 1] != 1) {
 						bullet[i].pos.x += int(bullet[i].velocity.x);
 						go->player.isMove = 0;
 					}
@@ -102,9 +88,6 @@ void EnemyAction(GameObject* go, Bullet bullet[], System* s) {
 						bullet[i].pos.x += int(bullet[i].velocity.x);
 						bullet[i].isShot = 0;
 						go->player.isMove = 0;
-					}
-					else {
-						bullet[i].posTmp.x -= int(bullet[i].velocity.x);
 					}
 				}
 			}
@@ -118,20 +101,15 @@ void EnemyAction(GameObject* go, Bullet bullet[], System* s) {
 		}
 	}
 }
-
-void BulletCollision(GameObject* go, Bullet bullet[], System* s) {
-	GetMapNum(go, bullet, s);
+// 当たり判定
+void BulletCollision(GameObject* go, Bullet bullet[], Enemy enemy[], System* s) {
 	for (int i = 0; i < s->enemyNum; i++) {
-		if (bullet[i].pos.x == go->player.pos.x && bullet[i].pos.y == go->player.pos.y) {
+		if (bullet[i].pos.x == go->player.pos.x && bullet[i].pos.y == go->player.pos.y && enemy[i].isAlive == 1) {
 			if (bullet[i].direction == 6) { // 上
 				if (go->player.direction != 2 && go->player.direction != 0) {
 					go->player.isMove = 0;
 					go->player.isHit = 1;
 					bullet[i].isShot = 0;
-				}
-				if (go->player.direction == 2) {
-					bullet[i].isReflect = 1;
-					bullet[i].velocity.y *= -1;
 				}
 			}
 			if (bullet[i].direction == 8) { // 下
@@ -140,10 +118,6 @@ void BulletCollision(GameObject* go, Bullet bullet[], System* s) {
 					go->player.isHit = 1;
 					bullet[i].isShot = 0;
 				}
-				if (go->player.direction == 0) {
-					bullet[i].isReflect = 1;
-					bullet[i].velocity.y *= -1;
-				}
 			}
 			if (bullet[i].direction == 7) { // 左
 				if (go->player.direction != 1 && go->player.direction != 3) {
@@ -151,20 +125,12 @@ void BulletCollision(GameObject* go, Bullet bullet[], System* s) {
 					go->player.isHit = 1;
 					bullet[i].isShot = 0;
 				}
-				if (go->player.direction == 1) {
-					bullet[i].isReflect = 1;
-					bullet[i].velocity.x *= -1;
-				}
 			}
 			if (bullet[i].direction == 9) { // 右
 				if (go->player.direction != 3 && go->player.direction != 1) {
 					go->player.isMove = 0;
 					go->player.isHit = 1;
 					bullet[i].isShot = 0;
-				}
-				if (go->player.direction == 3) {
-					bullet[i].isReflect = 1;
-					bullet[i].velocity.x *= -1;
 				}
 			}
 		}
@@ -182,7 +148,7 @@ void BulletReflect(GameObject* go, Bullet bullet[], System* s) {
 				}
 			}
 			// 重なっている時の反射
-			if (bullet[i].pos.x == go->player.pos.x && bullet[i].pos.y == go->player.pos.y) {
+			if (bullet[i].pos.x == go->player.pos.x && bullet[i].pos.y == go->player.pos.y) { 
 				if (go->player.direction == 2) { // 逆向き
 					bullet[i].isShot = 0;
 				}
@@ -234,12 +200,11 @@ void BulletReflect(GameObject* go, Bullet bullet[], System* s) {
 		if (bullet[i].isShot == 0) {
 			bullet[i].pos.x = bullet[i].respawnPos.x;
 			bullet[i].pos.y = bullet[i].respawnPos.y;
-			bullet[i].isShot = 1;
 		}
 	}
 }
 
-	void DrawBullet(Bullet bullet[], System* s) {
+void DrawBullet(Bullet bullet[], System* s) {
 		for (int i = 0; i < s->enemyNum; i++) {
 			if (bullet[i].isShot == 1)
 			{

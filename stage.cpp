@@ -26,7 +26,7 @@ void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
 		{ 1, 1, 0, 0, 8, 1, 0 },
-		{ 1, 0, 0, 0, 0, 1 ,0 },
+		{ 1, 0, 4, 0, 0, 1 ,0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 6, 0, 0, 0, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
@@ -36,6 +36,9 @@ void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
 
 			//敵の数をカウント
@@ -67,7 +70,15 @@ void Stage2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
@@ -86,8 +97,8 @@ void Stage3(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 
 	int map[VerticalBlock][BesideBlock] = {
 		{ 1, 1, 1, 1, 1, 1, 0 },
-		{ 1, 8, 0, 0, 0, 1, 0 },
-		{ 1, 1, 0, 0, 7, 1, 0 },
+		{ 1, 8, 0, 0, 4, 1, 0 },
+		{ 1, 0, 0, 0, 7, 1, 0 },
 		{ 1, 0, 0, 0, 0, 1, 0 },
 		{ 1, 9, 0, 0, 1, 1, 0 },
 		{ 1, 1, 1, 1, 1, 1, 0 },
@@ -97,7 +108,15 @@ void Stage3(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
@@ -127,7 +146,15 @@ void Stage4(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
@@ -153,7 +180,15 @@ void Stage5(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
@@ -179,7 +214,15 @@ void Stage6(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
@@ -205,7 +248,15 @@ void Stage7(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
@@ -231,15 +282,23 @@ void Stage8(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
 	EnemyInitialize(go, enemy, bullet, s);
 	BulletInitialize(s, bullet, enemy, go);
-	go->player.pos.x = 196.0f + 480.0f;
+	go->player.pos.x = 400.0f + 96.0f;
 	go->player.posTmp.x = go->player.pos.x;
-	go->player.pos.y = 120.0f + 196.0f;
+	go->player.pos.y = 120.0f + 96.0f;
 	go->player.posTmp.y = go->player.pos.y;
 };
 
@@ -257,15 +316,23 @@ void Stage9(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	//ステージの構成をmapChip.mapに代入する
 	for (int i = 0; i < BesideBlock; i++) {
 		for (int j = 0; j < VerticalBlock; j++) {
+			if (map[j][i] == 4) { // 作成補助用
+				map[j][i] = 0;
+			}
 			go->mapChip.map[j][i] = map[j][i];
+
+			//敵の数をカウント
+			if (map[j][i] >= 6 && map[j][i] <= 9) {
+				s->enemyNum++;
+			}
 		}
 	}
 
 	EnemyInitialize(go, enemy, bullet, s);
 	BulletInitialize(s, bullet, enemy, go);
-	go->player.pos.x = 400.0f + 388.0f;
+	go->player.pos.x = 400.0f + 384.0f;
 	go->player.posTmp.x = go->player.pos.x;
-	go->player.pos.y = 120.0f + 388.0f;
+	go->player.pos.y = 120.0f + 384.0f;
 	go->player.posTmp.y = go->player.pos.y;
 };
 
@@ -301,10 +368,41 @@ void StageAggregate(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]) {
 	}
 };
 
+
 //ステージを描画するための関数
 void DrawStage(GameObject* go, ImageInfo* ii) {
-	for (int i = 0; i < BesideBlock; i++) {
-		for (int j = 0; j < VerticalBlock; j++) {
+
+	for (int i = 0; i < besideBlock; i++) {
+
+		if (go->mapChip.map[0][i] !=0 && go->mapChip.stageNum == 0) {
+			Novice::DrawQuad(
+				//左上
+				go->mapChip.pos.x + (go->mapChip.blockSize * i),
+				go->mapChip.pos.y + (go->mapChip.blockSize),
+
+				//右上
+				(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+				go->mapChip.pos.y + (go->mapChip.blockSize),
+
+				//左下
+				go->mapChip.pos.x + (go->mapChip.blockSize * i),
+				(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize),
+
+				//右下
+				(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
+				(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize),
+
+				//画像の情報
+				1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLACK
+			);
+
+		}
+
+
+
+		for (int j = 0; j < verticalBlock; j++) {
+
+	
 			if (go->mapChip.map[j][i] == 1) {
 				Novice::DrawQuad(
 					//左上
