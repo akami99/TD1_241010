@@ -1,4 +1,8 @@
 #pragma once
 #include "structer.h"
 
-void EnemyParticles(Enemy* enemy[]);
+void EffectInitialize(Effect effect[]);
+
+void EnemyParticles(Enemy enemy[], Effect effect[], System* s);
+
+void DrawParticles(Effect effect[]);

@@ -1,6 +1,7 @@
 #include "structer.h"
 #include "enemy.h"
 #include "system.h"
+#include "effect.h"
 
 void BulletInitialize(System* s, Bullet bullet[], Enemy enemy[], GameObject* go) {
 	for (int i = 0; i < s->enemyNum; i++) {

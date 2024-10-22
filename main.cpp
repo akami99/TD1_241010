@@ -4,6 +4,7 @@
 #include "stage.h"
 #include "enemy.h"
 #include "system.h"
+#include "effect.h"
 
 //グローバル変数
 const char kWindowTitle[] = "反射反撃";
@@ -26,7 +27,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     ImageInfo imageinfo;
     Bullet bullet[kMaxEnemy];
     Enemy enemy[kMaxEnemy];
-    //Effect effect[kParticlesNum];
+    Effect effect[kParticlesNum];
     Scene scene = TITLE;
 
     //構造体を格納するポインタ型変数の宣言
@@ -92,8 +93,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
                     enemy[i].mapNum.x = (enemy[i].pos.x - go->mapChip.mapPos.x) / go->mapChip.blockSize;
                     enemy[i].mapNum.y = (enemy[i].pos.y - go->mapChip.mapPos.y) / go->mapChip.blockSize;
                     go->mapChip.map[enemy[i].mapNum.y][enemy[i].mapNum.x] = 0;
+                    EffectInitialize(effect);
+                    EnemyParticles(enemy, effect, s);
                 }
             }
+            
 
             for (int i = 0; i < s->enemyNum; i++) {
                 if (enemy[i].isAlive == 0) {
@@ -164,7 +168,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             DrawStage(go, ii);
             DrawPlayer(go, ii);
             DrawBullet(bullet, s);
-
+            DrawParticles(effect);
 
             break;
         case 3: //ゲームオーバー

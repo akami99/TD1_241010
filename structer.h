@@ -74,10 +74,11 @@ struct Bullet {
 
 //エフェクトに関係する構造体
 struct Effect {
-    Vector2 Pos;
+    Vector2 pos;
     Vector2 velocity;
-    int radius;
-    
+    float radius;
+    int timer;
+    int isAlive;
 };
 
 //マップチップに関する構造体
