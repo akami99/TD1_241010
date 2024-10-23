@@ -64,6 +64,9 @@
     <ClCompile Include="system.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="effect.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -143,5 +146,6 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="system.h" />
+    <ClInclude Include="effect.h" />
   </ItemGroup>
 </Project>

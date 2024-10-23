@@ -5,8 +5,12 @@
 
 //ステージ情報を初期化する関数
 void StageInfoInitialize(GameObject* go);
+void TutorialInitialize1(GameObject* go);
+void TutorialInitialize2(GameObject* go);
 
 //ステージ構成の関数
+void StageTutorial1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
+void StageTutorial2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage1(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage2(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);
 void Stage3(GameObject* go, System* s, Enemy enemy[], Bullet bullet[]);

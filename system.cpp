@@ -8,6 +8,8 @@ void SystemInitialize(System* s) {
 	s->enemyNum = 0;
 	s->gameoverNum = 0;
 	s->clearNum = 0;
+	s->tutorial1Num = 0;
+	s->tutorial2Num = 0;
 	s->gameFrame = 0;
 }
 

@@ -13,10 +13,7 @@ void EnemyAction(GameObject* go, Bullet bullet[],  Enemy enemy[], System* s);
 void BulletCollision(GameObject* go, Bullet bullet[], Enemy enemy[], System* s);
 
 // 反射の判定(弾が動いた後に入れる)
-void BulletReflect(GameObject* go, Bullet bullet[], System* s);
-
-// 反射の判定(弾が動いた後に入れる)
-void BulletReflect(GameObject* go, Bullet bullet[], System* s);
+void BulletReflect(GameObject* go, Bullet bullet[], System* s, Enemy enemy[]);
 
 //弾の描画を行う関数
 void DrawBullet(Bullet bullet[], Enemy enemy[], System* s, ImageInfo* ii);
