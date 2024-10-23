@@ -10,6 +10,7 @@ void SystemInitialize(System* s) {
 	s->clearNum = 0;
 	s->tutorial1Num = 0;
 	s->tutorial2Num = 0;
+	s->gameFrame = 0;
 }
 
 //オブジェクトのマップ番号を取得する関数
@@ -25,9 +26,8 @@ void GetMapNum(GameObject* go, Bullet bullet[], System* s) {
 	}
 }
 
-void TitleScreen() {
-	Novice::ScreenPrintf(600, 360, "Hansya Hangeki");
-	Novice::ScreenPrintf(600, 580, "START to SPACE");
+void TitleScreen(ImageInfo* ii) {
+	Novice::DrawSprite(0, 0, ii->image.titleBG, 1.0f, 1.0f, 0.0f, 0xffffffff);
 }
 
 void StageSelect(KeyInput* key, GameObject* go) {
@@ -39,34 +39,13 @@ void StageSelect(KeyInput* key, GameObject* go) {
 	}
 }
 
-void StageSelectScreen(GameObject* go) {
-	if (go->mapChip.stageNum == 1) {
-		Novice::ScreenPrintf(600, 360, "STAGE 1");
-	}
-	else if (go->mapChip.stageNum == 2) {
-		Novice::ScreenPrintf(600, 360, "STAGE 2");
-	}
-	else if (go->mapChip.stageNum == 3) {
-		Novice::ScreenPrintf(600, 360, "STAGE 3");
-	}
-	else if (go->mapChip.stageNum == 4) {
-		Novice::ScreenPrintf(600, 360, "STAGE 4");
-	}
-	else if (go->mapChip.stageNum == 5) {
-		Novice::ScreenPrintf(600, 360, "STAGE 5");
-	}
-	else if (go->mapChip.stageNum == 6) {
-		Novice::ScreenPrintf(600, 360, "STAGE 6");
-	}
-	else if (go->mapChip.stageNum == 7) {
-		Novice::ScreenPrintf(600, 360, "STAGE 7");
-	}
-	else if (go->mapChip.stageNum == 8) {
-		Novice::ScreenPrintf(600, 360, "STAGE 8");
-	}
-	else if (go->mapChip.stageNum == 9) {
-		Novice::ScreenPrintf(600, 360, "STAGE 9");
-	}
+void StageSelectScreen(GameObject* go, ImageInfo* ii) {
+	Novice::DrawSprite(0, 0, ii->image.gameBG, 1.0f, 1.0f, 0.0f, 0xffffffff);
+	Novice::DrawSprite(440, 264, ii->image.stage, 1.0f, 1.0f, 0.0f, 0xffffffff);
+	Novice::DrawQuad(686, 280, 750, 280, 686, 344, 750, 344, go->mapChip.stageNum * 64, 0, 64, 64, ii->image.number, 0xffffffff);
+	Novice::DrawSprite(340, 250, ii->image.selectA, 1.0f, 1.0f, 0.0f, 0xffffffff);
+	Novice::DrawSprite(830, 250, ii->image.selectD, 1.0f, 1.0f, 0.0f, 0xffffffff);
+	Novice::DrawSprite(500, 500, ii->image.space, 1.0f, 1.0f, 0.0f, 0xffffffff);
 }
 
 void GameOver(System* s, KeyInput* key) {
@@ -78,20 +57,33 @@ void GameOver(System* s, KeyInput* key) {
 	}
 }
 
-void GameOverScreen(System* s) {
-	Novice::ScreenPrintf(600, 360, "GameOver");
-	Novice::ScreenPrintf(400, 580, "Back To Select");
-	Novice::ScreenPrintf(800, 580, "Retry Stage");
+void GameOverScreen(System* s, ImageInfo* ii) {
+	Novice::DrawSprite(0, 0, ii->image.gameOverBG, 1.0f, 1.0f, 0.0f, 0xffffffff);
+
+	Novice::DrawSprite(0, 0, ii->image.returns, 1.0f, 1.0f, 0.0f, 0xffffffff);
 
 	if (s->gameoverNum == 0) {
-		Novice::DrawLine(400, 600, 525, 600, RED);
+		Novice::DrawLine(125, 600, 550, 600, RED);
 	}
 	else if (s->gameoverNum == 1) {
-		Novice::DrawLine(800, 600, 900, 600, RED);
+		Novice::DrawLine(800, 600, 1150, 600, RED);
 	}
 }
 
 void Clear(System* s, KeyInput* key) {
+	if (s->gameFrame < 80) {
+		s->gameFrame++;
+	} else if (s->gameFrame > 140) {
+		s->gameFrame -= 2;
+	}
+
+	if (s->gameFrame > 80 && s->gameFrame <= 140) {
+		s->gameFrame = 140;
+	}
+	if (s->gameFrame == 80) {
+		s->gameFrame = 180;
+	}
+
 	if (key->keys[DIK_A] && key->preKeys[DIK_A] == 0 && s->clearNum > 0) {
 		s->clearNum--;
 	}
@@ -100,15 +92,20 @@ void Clear(System* s, KeyInput* key) {
 	}
 }
 
-void ClearScreen(System* s) {
-	Novice::ScreenPrintf(600, 360, "Stage Clear");
-	Novice::ScreenPrintf(400, 580, "Back To Select");
-	Novice::ScreenPrintf(800, 580, "Retry Stage");
+void ClearScreen(System* s, ImageInfo* ii) {
+	Novice::DrawSprite(0, 0, ii->image.clearBG, 1.0f, 1.0f, 0.0f, 0xffffffff);
+
+	if (s->gameFrame >= 140) {
+		Novice::DrawQuad(0, 0, 1280, 0, 0, 720, 1280, 720, 1280 * ((s->gameFrame - 100) / 10), 0, 1280, 720, ii->image.clear, 0xffffffff);
+	} else if (s->gameFrame <= 80) {
+		Novice::DrawQuad(0, 0, 1280, 0, 0, 720, 1280, 720, 1280 * (s->gameFrame / 10), 0, 1280, 720, ii->image.clear, 0xffffffff);
+	}
+	Novice::DrawSprite(0, 0, ii->image.returns, 1.0f, 1.0f, 0.0f, 0x000000ff);
 
 	if (s->clearNum == 0) {
-		Novice::DrawLine(400, 600, 525, 600, RED);
+		Novice::DrawLine(125, 600, 550, 600, RED);
 	}
 	else if (s->clearNum == 1) {
-		Novice::DrawLine(800, 600, 900, 600, RED);
+		Novice::DrawLine(800, 600, 1150, 600, RED);
 	}
 }

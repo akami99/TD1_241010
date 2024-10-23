@@ -16,4 +16,4 @@ void BulletCollision(GameObject* go, Bullet bullet[], Enemy enemy[], System* s);
 void BulletReflect(GameObject* go, Bullet bullet[], System* s, Enemy enemy[]);
 
 //弾の描画を行う関数
-void DrawBullet(Bullet bullet[], System* s, Enemy enemy[]);
+void DrawBullet(Bullet bullet[], Enemy enemy[], System* s, ImageInfo* ii);
