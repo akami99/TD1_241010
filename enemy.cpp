@@ -204,12 +204,14 @@ void BulletReflect(GameObject* go, Bullet bullet[], System* s) {
 	}
 }
 
-void DrawBullet(Bullet bullet[], System* s) {
+void DrawBullet(Bullet bullet[], Enemy enemy[], System* s, ImageInfo* ii) {
 		for (int i = 0; i < s->enemyNum; i++) {
-			if (bullet[i].isShot == 1)
+			if (bullet[i].isShot == 1 && enemy[i].isAlive == 1)
 			{
-				Novice::DrawEllipse(int(bullet[i].pos.x), int(bullet[i].pos.y),
-					int(bullet[i].radius), int(bullet[i].radius), 0.0f, 0xffcc00ff, kFillModeWireFrame);
+				Novice::DrawSprite(
+					400 + bullet[i].mapNum.x * 96 - int(bullet->radius) * 3,
+					120 + bullet[i].mapNum.y * 96 - int(bullet->radius) * 3,
+					ii->image.bullet, 1.0f, 1.0f, 0.0f, 0xffffffff);
 			}
 		}
 	}

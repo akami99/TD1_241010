@@ -151,29 +151,33 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
         switch (scene) {
         case 0: //タイトル
-            TitleScreen();
+            TitleScreen(ii);
 
 
             break;
         case 1: //ステージセレクト
-            StageSelectScreen(go);
+            StageSelectScreen(go, ii);
 
 
             break;
         case 2: //ゲームシーン
+            Novice::DrawSprite(0, 0, ii->image.gameBG, 1.0f, 1.0f, 0.0f, 0xffffffff);
+            DrawBullet(bullet, enemy, s, ii);
             DrawStage(go, ii);
             DrawPlayer(go, ii);
-            DrawBullet(bullet, s);
-
+            
+            Novice::DrawQuad(140, 300, 204, 300, 140, 364, 204, 364, go->player.skip * 64, 0, 64, 64, ii->image.number, 0xffffffff);
+            Novice::DrawSprite(45, 500, ii->image.space, 1.0f, 1.0f, 0.0f, 0xffffffff);
+            
 
             break;
         case 3: //ゲームオーバー
-            GameOverScreen(s);
+            GameOverScreen(s, ii);
 
 
             break;
         case 4: //クリア画面
-            ClearScreen(s);
+            ClearScreen(s, ii);
             break;
         }
         ///

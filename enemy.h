@@ -19,4 +19,4 @@ void BulletReflect(GameObject* go, Bullet bullet[], System* s);
 void BulletReflect(GameObject* go, Bullet bullet[], System* s);
 
 //弾の描画を行う関数
-void DrawBullet(Bullet bullet[], System* s);
+void DrawBullet(Bullet bullet[], Enemy enemy[], System* s, ImageInfo* ii);

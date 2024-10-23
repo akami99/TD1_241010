@@ -422,7 +422,7 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLACK
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.wall, 0xffffffff
 				);
 			}
 
@@ -446,7 +446,7 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 
 					//画像の情報
 
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, BLUE
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.pitFall, 0xffffffff
 				);
 			}
 
@@ -470,18 +470,18 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, WHITE
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.player, 0xffffffff
 				);
 			}
 
 			if (go->mapChip.map[j][i] == 6) {
 				Novice::DrawQuad(
-					//左上(頂点)
-					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					//左上
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
 					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
-					//右上(頂点)
-					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					//右上
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
 					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
 					//左下
@@ -493,7 +493,7 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.enemyUp, 0xffffffff
 
 
 				);
@@ -503,24 +503,24 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 			if (go->mapChip.map[j][i] == 7) {
 
 				Novice::DrawQuad(
-					//左上(頂点)
+					//左上
 					go->mapChip.pos.x + (go->mapChip.blockSize * i),
-					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
-					///右上
+					//右上
 					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
 					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
-					///左下(頂点)
+					//左下
 					go->mapChip.pos.x + (go->mapChip.blockSize * i),
-					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//右下
 					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.enemyLeft, 0xffffffff
 				);
 			}
 
@@ -534,17 +534,17 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
 					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
-					//左下(頂点)
-					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					//左下
+					go->mapChip.pos.x + (go->mapChip.blockSize * i),
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
-					//右下(頂点)
-					int(go->mapChip.pos.x + (go->mapChip.blockSize * i) + (go->mapChip.blockSize * i / (2 * i))),
+					//右下
+					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.enemyDown, 0xffffffff
 
 
 				);
@@ -554,24 +554,24 @@ void DrawStage(GameObject* go, ImageInfo* ii) {
 			if (go->mapChip.map[j][i] == 9) {
 
 				Novice::DrawQuad(
-					//左上(頂点)
+					//左上
 					go->mapChip.pos.x + (go->mapChip.blockSize * i),
 					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
-					///右上
+					//右上
 					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
-					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+					go->mapChip.pos.y + (go->mapChip.blockSize * j),
 
-					///左下(頂点)
+					//左下
 					go->mapChip.pos.x + (go->mapChip.blockSize * i),
 					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//右下
 					(go->mapChip.pos.x + go->mapChip.blockSize) + (go->mapChip.blockSize * i),
-					int(go->mapChip.pos.y + (go->mapChip.blockSize * j) + (go->mapChip.blockSize * j / (2 * j))),
+					(go->mapChip.pos.y + go->mapChip.blockSize) + (go->mapChip.blockSize * j),
 
 					//画像の情報
-					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.box, RED
+					1, 1, go->mapChip.blockSize, go->mapChip.blockSize, ii->image.enemyRight, 0xffffffff
 				);
 			}
 

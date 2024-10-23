@@ -50,6 +50,7 @@ struct System {
     int enemyNum; //ステージごとの敵の数
     int gameoverNum;
     int clearNum;
+    int gameFrame;
 };
 
 //敵に関係する構造体
@@ -101,7 +102,27 @@ struct GameObject {
 
 //画像をまとめる構造体
 struct Image {
-    int box = { Novice::LoadTexture("white1x1.png") };
+    int box = { Novice::LoadTexture("./Resources/Images/Players/player.png") };
+    int player = { Novice::LoadTexture("./Resources/Images/Players/player.png") }; // プレイヤー
+    int bullet = { Novice::LoadTexture("./Resources/Images/Bullets/enemyBullet.png") };// 弾
+    int enemyUp = { Novice::LoadTexture("./Resources/Images/MapTips/enemyUp.png") }; // 敵
+    int enemyLeft = { Novice::LoadTexture("./Resources/Images/MapTips/enemyLeft.png") }; // 敵
+    int enemyDown = { Novice::LoadTexture("./Resources/Images/MapTips/enemyDown.png") }; // 敵
+    int enemyRight = { Novice::LoadTexture("./Resources/Images/MapTips/enemyRight.png") }; // 敵
+    int wall = { Novice::LoadTexture("./Resources/Images/MapTips/block.png") }; // 壁
+    int pitFall = { Novice::LoadTexture("./Resources/Images/MapTips/pitFall.png") }; // 穴
+    int titleBG = { Novice::LoadTexture("./Resources/Images/TitleScenes/titleBG.png") }; // タイトル画面
+    int gameBG = { Novice::LoadTexture("./Resources/Images/GameScenes/stageBG.png") }; // ステージの背景
+    int gameOverBG = { Novice::LoadTexture("./Resources/Images/GameOverScenes/gameoverBG.png") }; // ゲームオーバーの背景
+    int clearBG = { Novice::LoadTexture("./Resources/Images/ClearScenes/clearBG.png") }; // クリアの背景
+    int clear = { Novice::LoadTexture("./Resources/Images/ClearScenes/clear.png") }; // クリア
+    int selectA = { Novice::LoadTexture("./Resources/Images/UIs/selectA.png") }; // Aでの操作を表す文字
+    int selectD = { Novice::LoadTexture("./Resources/Images/UIs/selectD.png") }; // Dでの操作を表す文字
+    int space = { Novice::LoadTexture("./Resources/Images/UIs/SPACE.png") }; // SPACEでの操作を表す文字
+    int stage = { Novice::LoadTexture("./Resources/Images/UIs/stage.png") }; // Stageを表す文字
+    int tutorial = { Novice::LoadTexture("./Resources/Images/UIs/tutorial.png") }; // Tutorialを表す文字
+    int returns = { Novice::LoadTexture("./Resources/Images/UIs/returns.png") }; // StageかTitleを表す文字
+    int number = { Novice::LoadTexture("./Resources/Images/UIs/number.png") }; // number
 };
 
 //画像の情報をまとめる構造体
