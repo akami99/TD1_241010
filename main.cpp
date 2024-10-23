@@ -101,6 +101,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
             if (s->tutorial1Num == 1 && key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
                 go->mapChip.stageNum = 101;
+                SystemInitialize(s);
+                PlayerInitialize(go);
                 EnemyInitialize(go, enemy, bullet, s);
                 BulletInitialize(s, bullet, enemy, go);
                 TutorialInitialize2(go);
