@@ -50,6 +50,8 @@ struct System {
     int enemyNum; //ステージごとの敵の数
     int gameoverNum;
     int clearNum;
+    int tutorial1Num;
+    int tutorial2Num;
 };
 
 //敵に関係する構造体
@@ -75,16 +77,25 @@ struct Bullet {
 //エフェクトに関係する構造体
 struct Effect {
     Vector2 pos;
+    Vector2 vector;
     Vector2 velocity;
+    float speed;
+    Vector2 acceleration;
+    float radian;
+    float degree;
     float radius;
-    int timer;
-    int isAlive;
+    int isActive;  
+    int timer;//パーティクル用
 };
 
 //マップチップに関する構造体
 struct MapChip {
     int map[verticalBlock][besideBlock];
     int stageNum;
+
+    //チュートリアル用の初期位置
+    IntVector2 tutorialPos;
+    IntVector2 tutorialMapPos;
 
     //マップ描画の初期位置
     IntVector2 pos;
@@ -103,6 +114,8 @@ struct GameObject {
 //画像をまとめる構造体
 struct Image {
     int box = { Novice::LoadTexture("white1x1.png") };
+    int terop1 = { Novice::LoadTexture("./resources./images./ttutorialTerop1.png") };
+    int terop2 = { Novice::LoadTexture("./resources./images./tutorialTerop2.png") };
 };
 
 //画像の情報をまとめる構造体

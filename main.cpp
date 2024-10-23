@@ -42,6 +42,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     //各情報の初期化
     StageInfoInitialize(go);
     SystemInitialize(s);
+    EffectInitialize(effect);
+    SystemInitialize(s);
+    PlayerInitialize(go);
 
     // ウィンドウの×ボタンが押されるまでループ
     while (Novice::ProcessMessage() == 0) {
@@ -57,19 +60,91 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
         ///
 
         switch (scene) {
-        case 0: //タイトル
+        case TITLE: //タイトル
             if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
-                scene = SELECT;
+                eliminate = 0;
+                EnemyInitialize(go, enemy, bullet, s);
+                BulletInitialize(s, bullet, enemy, go);
+                TutorialInitialize1(go);
+                StageAggregate(go, s, enemy, bullet);
+                scene = TUTORIAL;
             }
 
+            break;
+        case TUTORIAL:
+            PlayerMove(go, bullet, key, s);
+            BulletCollision(go, bullet, enemy, s);
+            EnemyAction(go, bullet, enemy, s);
+            BulletReflect(go, bullet, s, enemy);
+
+            if (go->mapChip.stageNum == 100) {
+                for (int i = 0; i < s->enemyNum; i++) {
+                    if (bullet[i].isShot == 0) {
+                        enemy[i].isAlive = 0;
+                    }
+                    if (enemy[i].isAlive == 0) {
+                        enemy[i].mapNum.x = (enemy[i].pos.x - go->mapChip.mapPos.x) / go->mapChip.blockSize;
+                        enemy[i].mapNum.y = (enemy[i].pos.y - go->mapChip.mapPos.y) / go->mapChip.blockSize;
+                        go->mapChip.map[enemy[i].mapNum.y][enemy[i].mapNum.x] = 0;
+                    }
+                }
+
+                for (int i = 0; i < s->enemyNum; i++) {
+                    if (enemy[i].isAlive == 0) {
+                        eliminate++;
+                    }
+                    if (eliminate == s->enemyNum) {
+                        s->tutorial1Num++;
+                    }
+                }
+            }
+
+            if (s->tutorial1Num == 1 && key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
+                go->mapChip.stageNum = 101;
+                EnemyInitialize(go, enemy, bullet, s);
+                BulletInitialize(s, bullet, enemy, go);
+                TutorialInitialize2(go);
+                StageAggregate(go, s, enemy, bullet);;
+                go->player.skip = 1;
+                eliminate = 0;
+                break;
+            }
+
+            if (go->mapChip.stageNum == 101) {
+                for (int i = 0; i < s->enemyNum; i++) {
+                    if (bullet[i].isShot == 0) {
+                        enemy[i].isAlive = 0;
+                    }
+                    if (enemy[i].isAlive == 0) {
+                        enemy[i].mapNum.x = (enemy[i].pos.x - go->mapChip.mapPos.x) / go->mapChip.blockSize;
+                        enemy[i].mapNum.y = (enemy[i].pos.y - go->mapChip.mapPos.y) / go->mapChip.blockSize;
+                        go->mapChip.map[enemy[i].mapNum.y][enemy[i].mapNum.x] = 0;
+                    }
+                }
+
+                if (go->player.isHit == 1) {
+                    s->tutorial2Num = 1;
+                    go->mapChip.stageNum = 1;
+                    scene = GAMEOVER;
+                }
+            }
+
+            if (s->tutorial2Num == 1 && key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
+                go->mapChip.stageNum = 1;
+                EnemyInitialize(go, enemy, bullet, s);
+                BulletInitialize(s, bullet, enemy, go);
+                StageAggregate(go, s, enemy, bullet);;
+                eliminate = 0;
+                scene = SELECT;
+                break;
+            }
 
             break;
-        case 1: //ステージセレクト
+        case SELECT: //ステージセレクト
             StageSelect(key, go);
 
             if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0) {
                 eliminate = 0;
-
                 SystemInitialize(s);
                 PlayerInitialize(go);
                 StageAggregate(go, s, enemy, bullet);
@@ -77,13 +152,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             }
 
             break;
-        case 2: //ゲームシーン
+        case GAME: //ゲームシーン
             eliminate = 0;
 
             PlayerMove(go, bullet, key, s);
             BulletCollision(go, bullet, enemy, s);
             EnemyAction(go, bullet, enemy, s);
-            BulletReflect(go, bullet, s);
+            BulletReflect(go, bullet, s, enemy);
+            /*EnemyParticles(effect, s, enemy);*/
 
             for (int i = 0; i < s->enemyNum; i++) {
                 if (bullet[i].isShot == 0) {
@@ -93,11 +169,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
                     enemy[i].mapNum.x = (enemy[i].pos.x - go->mapChip.mapPos.x) / go->mapChip.blockSize;
                     enemy[i].mapNum.y = (enemy[i].pos.y - go->mapChip.mapPos.y) / go->mapChip.blockSize;
                     go->mapChip.map[enemy[i].mapNum.y][enemy[i].mapNum.x] = 0;
-                    EffectInitialize(effect);
-                    EnemyParticles(enemy, effect, s);
                 }
             }
-            
 
             for (int i = 0; i < s->enemyNum; i++) {
                 if (enemy[i].isAlive == 0) {
@@ -114,9 +187,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
             break;
-        case 3: //ゲームオーバー
+        case GAMEOVER: //ゲームオーバー
             GameOver(s, key);
-            if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->gameoverNum == 0) {
+            if (s->tutorial2Num == 1 && key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->gameoverNum == 0) {
+                scene = SELECT;
+            }
+            else if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->gameoverNum == 0) {
+                SystemInitialize(s);
+                PlayerInitialize(go);
                 scene = SELECT;
             }
             else if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->gameoverNum == 1) {
@@ -127,9 +205,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             }
 
             break;
-        case 4: //クリア画面
+        case CLEAR: //クリア画面
             Clear(s, key);
             if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->clearNum == 0) {
+                SystemInitialize(s);
+                PlayerInitialize(go);
                 scene = SELECT;
             }
             else if (key->keys[DIK_SPACE] && key->preKeys[DIK_SPACE] == 0 && s->clearNum == 1) {
@@ -154,32 +234,54 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 
         switch (scene) {
-        case 0: //タイトル
+        case TITLE: //タイトル
             TitleScreen();
 
 
             break;
-        case 1: //ステージセレクト
+        case TUTORIAL:
+            DrawStage(go, ii);
+            DrawPlayer(go, ii);
+            DrawBullet(bullet, s, enemy);
+            if (go->mapChip.stageNum == 100) {
+                Novice::DrawSprite(400, 400, ii->image.terop1, 1.0f, 1.0f, 0.0f, WHITE);
+            }
+            if (go->mapChip.stageNum == 101) {
+                Novice::DrawSprite(400, 496, ii->image.terop2, 1.0f, 1.0f, 0.0f, WHITE);
+            }
+
+            break;
+        case SELECT: //ステージセレクト
             StageSelectScreen(go);
 
 
             break;
-        case 2: //ゲームシーン
+        case GAME: //ゲームシーン
             DrawStage(go, ii);
             DrawPlayer(go, ii);
-            DrawBullet(bullet, s);
-            DrawParticles(effect);
+            DrawBullet(bullet, s, enemy);
+            //DrawParticles(effect);
 
             break;
-        case 3: //ゲームオーバー
+        case GAMEOVER: //ゲームオーバー
             GameOverScreen(s);
 
 
             break;
-        case 4: //クリア画面
+        case CLEAR: //クリア画面
             ClearScreen(s);
             break;
         }
+
+        /*Novice::ScreenPrintf(20, 30, "scene:%d", scene);
+        Novice::ScreenPrintf(20, 60, "stageNum:%d", go->mapChip.stageNum);
+        Novice::ScreenPrintf(20, 90, "effect posX:%f", effect[0].pos.x);
+        Novice::ScreenPrintf(20, 120, "effect posY:%f", effect[0].pos.y);
+        Novice::ScreenPrintf(20, 150, "effect radius:%f", effect[0].radius);
+        Novice::ScreenPrintf(20, 180, "enemy posX:%d", enemy[0].pos.x);
+        Novice::ScreenPrintf(20, 210, "enemy posY:%d", enemy[0].pos.y);
+        Novice::ScreenPrintf(20, 240, "enemy isAlive:%d", enemy[0].isAlive);*/
+
         ///
         /// ↑描画処理ここまで
         ///

@@ -2,51 +2,89 @@
 #include "effect.h"
 #include "enemy.h"
 #include <time.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
-const int kParticlesNum = 100;
+const int kParticlesNum = 50;
+
+//初期化の関数
 void EffectInitialize(Effect effect[]) {
-	for (int i = 0; i < kParticlesNum; i++)
-	{
+
+	//乱数値の取得
+	srand((unsigned)time(NULL));
+
+	for (int i = 0; i < kParticlesNum; i++){
+		//一粒ずつの情報を取得
 		effect[i].pos.x = {};
 		effect[i].pos.y = {};
-		effect[i].radius = 2.0;
-		effect[i].timer = 45;
-		effect[i].isAlive = {};
+
+		effect[i].isActive = 0;
+		effect[i].timer = 60;	
+
+		effect[i].acceleration.y = 1.0f;
+		effect[i].radius = 3.0f;
 	}
 }
 
-void EnemyParticles(Enemy enemy[], Effect effect[], System* s) {
-	unsigned int currentTime = time(nullptr); //時間を小数に変換
-	srand(currentTime);
-	//パーティクルの位置を敵に合わせる
-	for (int i = 0; i < s->enemyNum; i++) {	//敵の数
-		if (enemy[i].isAlive == 0) {
-			for (int j = 0; j < kParticlesNum; j++) {	//パーティクルの数
-				//一粒ずつの情報を取得
-				effect[j].pos.x = float(enemy[i].pos.x) + rand() % 21 - 10;
-				effect[j].pos.y = float(enemy[i].pos.y) + rand() % 21 - 10;
-				effect[j].velocity.x = rand() % 11 - 5;
-				effect[j].velocity.y = rand() % 11 - 5;
-				effect[j].isAlive = 1;
+//敵死亡時のエフェクトを出す関数
+void EnemyParticles(Effect effect[], System* s, Enemy enemy[]) {
 
-				//パーティクル演算
-				effect[j].timer--;
-				if (effect[j].timer != 0) {
-					effect[j].pos.x += effect[j].velocity.x;
-					effect[j].pos.y += effect[j].velocity.y;
-					effect[j].radius -= 0.025;
-				}
-				else if (effect[j].timer == 0) {
-					effect[j].isAlive = 0;
-				}
+	//乱数値の取得
+	srand((unsigned)time(NULL));
+
+	for (int i = 0; i < s->enemyNum; i++) {
+		if (enemy[i].isAlive == 0) {
+			for (int j = 0; j < kParticlesNum; j++) {
+				//敵が死んだらエフェクト発動
+				effect[j].isActive = 1;
+
+				//エフェクトの寿命
+				effect[j].timer = 60;
+
+				//エフェクトの角度を取得
+				effect[j].radian = float(rand() % 360);
+
+				//角度を変換
+				effect[j].radian = ((effect[j].degree / 180.0f) * float(M_PI));
+
+				//エフェクトの速さを取得
+				effect[j].speed = float(rand() % 21 - 10);
+
+				//ベクトル生成
+				effect[j].vector.x = cosf(effect[j].radian);
+				effect[j].vector.y = sinf(effect[j].radian);
+
+				//速度の生成
+				effect[j].velocity.x = effect[j].vector.x * effect[j].speed;
+				effect[j].velocity.y = effect[j].vector.y * effect[j].speed;
+
+				effect[j].pos.x = float(enemy[i].pos.x);
+				effect[j].pos.y = float(enemy[i].pos.y);
 			}
+		}
+	}
+
+	for (int i = 0; i < kParticlesNum; i++) {
+		if (effect[i].isActive == 1) {
+			//アクティブになったら寿命を減らしていく
+			effect[i].timer--;
+
+			//エフェクトを動かす
+			effect[i].velocity.y += effect[i].acceleration.y;
+
+			effect[i].pos.x += effect[i].velocity.x;
+			effect[i].pos.y += effect[i].velocity.y;
+		}
+
+		if (effect[i].timer <= 0) {
+			effect[i].isActive = 0;
 		}
 	}
 }
 
 void DrawParticles(Effect effect[]) {
 	for (int i = 0; i < kParticlesNum; i++) {
-		if (effect[i].isAlive == 1) {
+		if (effect[i].isActive == 1) {
 			Novice::DrawEllipse(int(effect[i].pos.x), int(effect[i].pos.y),
 				int(effect[i].radius), int(effect[i].radius),
 				0.0f, WHITE, kFillModeSolid);

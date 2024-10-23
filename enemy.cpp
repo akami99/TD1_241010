@@ -139,7 +139,7 @@ void BulletCollision(GameObject* go, Bullet bullet[], Enemy enemy[], System* s) 
 }
 
 // 反射の判定(弾が動いた後に入れる)
-void BulletReflect(GameObject* go, Bullet bullet[], System* s) {
+void BulletReflect(GameObject* go, Bullet bullet[], System* s, Enemy enemy[]) {
 	for (int i = 0; i < s->enemyNum; i++) {
 		if (bullet[i].direction == 6) { // 上
 			// 隣接時の反射
@@ -197,17 +197,21 @@ void BulletReflect(GameObject* go, Bullet bullet[], System* s) {
 				}
 			}
 		}
-
-		if (bullet[i].isShot == 0) {
+		if (bullet[i].isShot == 0 && enemy[i].isAlive == 1) {
 			bullet[i].pos.x = bullet[i].respawnPos.x;
 			bullet[i].pos.y = bullet[i].respawnPos.y;
+		}
+		if (enemy[i].isAlive == 0) {
+			enemy[i].mapNum.x = (enemy[i].pos.x - go->mapChip.mapPos.x) / go->mapChip.blockSize;
+			enemy[i].mapNum.y = (enemy[i].pos.y - go->mapChip.mapPos.y) / go->mapChip.blockSize;
+			go->mapChip.map[enemy[i].mapNum.y][enemy[i].mapNum.x] = 0;
 		}
 	}
 }
 
-void DrawBullet(Bullet bullet[], System* s) {
+void DrawBullet(Bullet bullet[], System* s, Enemy enemy[]) {
 		for (int i = 0; i < s->enemyNum; i++) {
-			if (bullet[i].isShot == 1)
+			if (bullet[i].isShot == 1 && enemy[i].isAlive == 1)
 			{
 				Novice::DrawEllipse(int(bullet[i].pos.x), int(bullet[i].pos.y),
 					int(bullet[i].radius), int(bullet[i].radius), 0.0f, 0xffcc00ff, kFillModeWireFrame);

@@ -3,6 +3,6 @@
 
 void EffectInitialize(Effect effect[]);
 
-void EnemyParticles(Enemy enemy[], Effect effect[], System* s);
+void EnemyParticles(Effect effect[], System* s, Enemy enemy[]);
 
 void DrawParticles(Effect effect[]);
