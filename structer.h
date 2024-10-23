@@ -114,8 +114,8 @@ struct GameObject {
 
 //画像をまとめる構造体
 struct Image {
-    int terop1 = { Novice::LoadTexture("./resources./images./ttutorialTerop1.png") };
-    int terop2 = { Novice::LoadTexture("./resources./images./tutorialTerop2.png") };
+    int terop1 = { Novice::LoadTexture("./resources/images/Tutorial/tutorialTerop1.png") };
+    int terop2 = { Novice::LoadTexture("./resources/images/Tutorial/tutorialTerop2.png") };
     int box = { Novice::LoadTexture("./Resources/Images/Players/player.png") };
     int player = { Novice::LoadTexture("./Resources/Images/Players/player.png") }; // プレイヤー
     int bullet = { Novice::LoadTexture("./Resources/Images/Bullets/enemyBullet.png") };// 弾
@@ -127,7 +127,7 @@ struct Image {
     int pitFall = { Novice::LoadTexture("./Resources/Images/MapTips/pitFall.png") }; // 穴
     int titleBG = { Novice::LoadTexture("./Resources/Images/TitleScenes/titleBG.png") }; // タイトル画面
     int gameBG = { Novice::LoadTexture("./Resources/Images/GameScenes/stageBG.png") }; // ステージの背景
-    int gameOverBG = { Novice::LoadTexture("./Resources/Images/GameOverScenes/gameoverBG.png") }; // ゲームオーバーの背景
+    int gameOverBG = { Novice::LoadTexture("./Resources/Images/GameOverScenes/gameOverBG.png") }; // ゲームオーバーの背景
     int clearBG = { Novice::LoadTexture("./Resources/Images/ClearScenes/clearBG.png") }; // クリアの背景
     int clear = { Novice::LoadTexture("./Resources/Images/ClearScenes/clear.png") }; // クリア
     int selectA = { Novice::LoadTexture("./Resources/Images/UIs/selectA.png") }; // Aでの操作を表す文字

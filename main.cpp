@@ -275,15 +275,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             break;
         }
 
-        /*Novice::ScreenPrintf(20, 30, "scene:%d", scene);
-        Novice::ScreenPrintf(20, 60, "stageNum:%d", go->mapChip.stageNum);
-        Novice::ScreenPrintf(20, 90, "effect posX:%f", effect[0].pos.x);
-        Novice::ScreenPrintf(20, 120, "effect posY:%f", effect[0].pos.y);
-        Novice::ScreenPrintf(20, 150, "effect radius:%f", effect[0].radius);
-        Novice::ScreenPrintf(20, 180, "enemy posX:%d", enemy[0].pos.x);
-        Novice::ScreenPrintf(20, 210, "enemy posY:%d", enemy[0].pos.y);
-        Novice::ScreenPrintf(20, 240, "enemy isAlive:%d", enemy[0].isAlive);*/
-
         ///
         /// ↑描画処理ここまで
         ///

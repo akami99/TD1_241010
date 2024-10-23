@@ -31,7 +31,6 @@ void EnemyInitialize(GameObject* go, Enemy enemy[], Bullet bullet[], System* s) 
 					enemy[num].isAlive = 1;// 生存フラグ
 					//敵の向き
 					enemy[num].direction = go->mapChip.map[i][j];
-					//bullet[num].direction = enemy[num].direction;
 					BulletInitialize(s, bullet, enemy, go);
 					num++;
 				}
