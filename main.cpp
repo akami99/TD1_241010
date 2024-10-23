@@ -239,9 +239,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             break;
             
         case TUTORIAL:
+            Novice::DrawSprite(0, 0, ii->image.gameBG, 1.0f, 1.0f, 0.0f, WHITE);
             DrawStage(go, ii);
             DrawPlayer(go, ii);
-            DrawBullet(bullet, s, enemy);
+            DrawBullet(bullet,  enemy, s, ii);
             if (go->mapChip.stageNum == 100) {
                 Novice::DrawSprite(400, 400, ii->image.terop1, 1.0f, 1.0f, 0.0f, WHITE);
             }
@@ -259,7 +260,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
             Novice::DrawSprite(0, 0, ii->image.gameBG, 1.0f, 1.0f, 0.0f, 0xffffffff);
             DrawStage(go, ii);
             DrawPlayer(go, ii);
-            DrawBullet(bullet, s, enemy, ii);
+            DrawBullet(bullet,  enemy, s, ii);
             Novice::DrawQuad(140, 300, 204, 300, 140, 364, 204, 364, go->player.skip * 64, 0, 64, 64, ii->image.number, 0xffffffff);
             Novice::DrawSprite(45, 500, ii->image.space, 1.0f, 1.0f, 0.0f, 0xffffffff);
             break;

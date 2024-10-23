@@ -114,7 +114,6 @@ struct GameObject {
 
 //画像をまとめる構造体
 struct Image {
-    int box = { Novice::LoadTexture("white1x1.png") };
     int terop1 = { Novice::LoadTexture("./resources./images./ttutorialTerop1.png") };
     int terop2 = { Novice::LoadTexture("./resources./images./tutorialTerop2.png") };
     int box = { Novice::LoadTexture("./Resources/Images/Players/player.png") };
